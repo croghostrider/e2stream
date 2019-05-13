@@ -95,12 +95,12 @@ Alert.showDialog = function()
 	document.getElementById(dialogBackElem).style.display='block';
 	document.getElementById(dialogElem).style.display='block';
 	
-	widgetAPI.putInnerHTML(document.getElementById(titleElemId),Alert.title);
-	widgetAPI.putInnerHTML(document.getElementById(questionElemId),Alert.question);
-	widgetAPI.putInnerHTML(document.getElementById(opts1ElemId),Alert.optionA);
-	if(Alert.numberOpts>1) widgetAPI.putInnerHTML(document.getElementById(opts2ElemId),Alert.optionB);
-	if(Alert.numberOpts>2) widgetAPI.putInnerHTML(document.getElementById(opts3ElemId),Alert.optionC);
-	if(Alert.numberOpts>3) widgetAPI.putInnerHTML(document.getElementById(opts4ElemId),Alert.optionD);
+	document.getElementById(titleElemId).innerHTML =Alert.title;
+	document.getElementById(questionElemId).innerHTML =Alert.question;
+	document.getElementById(opts1ElemId).innerHTML =Alert.optionA;
+	if(Alert.numberOpts>1) document.getElementById(opts2ElemId).innerHTML =Alert.optionB;
+	if(Alert.numberOpts>2) document.getElementById(opts3ElemId).innerHTML =Alert.optionC;
+	if(Alert.numberOpts>3) document.getElementById(opts4ElemId).innerHTML =Alert.optionD;
 	
 	Alert.dialogActive=true;
 };
@@ -154,7 +154,7 @@ Alert.receiveInput = function(inKeyCode)
 		case tvKey.KEY_PANEL_RETURN:	
 			Audio.playSoundBack();
 			Logger.logDebug("Alert Option - RETURN");
-			widgetAPI.sendReturnEvent();
+			tizen.application.getCurrentApplication().hide();
 			break;
 		case tvKey.KEY_1:
 		case tvKey.KEY_2:

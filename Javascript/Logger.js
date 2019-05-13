@@ -56,7 +56,7 @@ Logger.uiLog = function(str)
 {
 	var debugElement = document.getElementById("debug");
 	var lines = Logger.addToLines(str);
-	widgetAPI.putInnerHTML(debugElement, lines);
+	debugElement.innerHTML = lines;
 };
 
 Logger.consoleLog = function(str)

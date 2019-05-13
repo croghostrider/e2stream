@@ -78,25 +78,25 @@ Display.togglePopup = function()
 
 Display.setRecMode = function(inMode)
 {
-	widgetAPI.putInnerHTML(document.getElementById("recMode"),inMode);
+	document.getElementById("recMode").innerHTML =inMode;
 };
 
 Display.setStreamMode = function(inStreamMode)
 {
-	widgetAPI.putInnerHTML(document.getElementById("streamMode"),inStreamMode);
+	document.getElementById("streamMode").innerHTML =inStreamMode;
 };
 
 Display.setBouquetDesc = function()
 {
 	//Logger.logDebug("Set bouquet Description");
 	var desc = Data.getBouquetDescription(Data.getOnBouquet());
-	widgetAPI.putInnerHTML(document.getElementById("bouquetDesc"),desc);
+	document.getElementById("bouquetDesc").innerHTML =desc;
 };
 
 Display.setBouquetDescFromId = function(bid)
 {
 	var desc = Data.getBouquetDescription(bid);
-	widgetAPI.putInnerHTML(document.getElementById("bouquetDesc"),desc);
+	document.getElementById("bouquetDesc").innerHTML =desc;
 };
 
 Display.blankVideoList = function()
@@ -105,7 +105,7 @@ Display.blankVideoList = function()
     {
     	var textElem= document.getElementById("desc_"+i);
     	var piconElem  = document.getElementById("picon_" + i);
-    	widgetAPI.putInnerHTML(textElem, "");
+    	textElem.innerHTML = "";
     	piconElem.style.display="none";
     	divElem = document.getElementById("video" + i).style.backgroundImage="";
     }	
@@ -139,12 +139,12 @@ Display.setVideoList = function(nameList,idList)
 	        var className = "listText";
 	        if(Main.RECORDINGS_LIST==true)className = "recsText";
 	            
-	        widgetAPI.putInnerHTML(descElem,nameList[SlidingWindow.windowStartPointer+i]);
+	        descElem.innerHTML =nameList[SlidingWindow.windowStartPointer+i];
 	        descElem.className=className;
 	        piconElem.src=picUrl;
 	        piconElem.style.display="inline";
-	        //widgetAPI.putInnerHTML(this.videoList[i], iconHTML + "<span class=\"" + className + "\">" + listHTML +"</span>" );
-	        //widgetAPI.putInnerHTML(document.getElementById("piconlist"),iconLargeHTML);
+	        //this.videoList[i].innerHTML = iconHTML + "<span class=\"" + className + "\">" + listHTML +"</span>" ;
+	        //document.getElementById("piconlist").innerHTML =iconLargeHTML;
 	        //i++;
 	    }
     }
@@ -171,7 +171,7 @@ Display.setVideoList = function(nameList,idList)
     }
     
     listHTML = (SlidingWindow.pointer + 1) + " / " + nameList.length;
-    widgetAPI.putInnerHTML(document.getElementById("videoCount"), listHTML);
+    document.getElementById("videoCount").innerHTML = listHTML;
     Display.setBouquetDesc();
 };
 
@@ -191,7 +191,7 @@ Display.setVideoCounter = function(position)
 {
 	var listHTML = "";
     listHTML = (position ) + " / " + Data.getVideoCount();
-    widgetAPI.putInnerHTML(document.getElementById("videoCount"), listHTML);
+    document.getElementById("videoCount").innerHTML = listHTML;
 
 };
 
@@ -206,14 +206,14 @@ Display.setVideoListPosition = function(count)
 
 Display.emptyPiconLarge = function()
 {
-    widgetAPI.putInnerHTML(document.getElementById("piconlarge"),"");
+    document.getElementById("piconlarge").innerHTML ="";
 };
 
 Display.setPiconList = function(id,name)
 {
 	var picUrl = Picon.getFileName(id, name);//id.substring(0, id.length-1) + ".png";
     var iconLargeHTML = iconHTMLleft+ largeIconSize + iconid + iconsrc + picUrl + iconHTMLright;
-    widgetAPI.putInnerHTML(document.getElementById("piconlist"),iconLargeHTML);
+    document.getElementById("piconlist").innerHTML =iconLargeHTML;
     
     if(Main.RECORDINGS_LIST == true)Display.hidePicons();
     else Display.showPicons();
@@ -225,14 +225,14 @@ Display.setPiconLarge = function(id,name)
     id = id.replace(/\:/g,"_");
     var picUrl = Picon.getFileName(id, name);//id.substring(0, id.length-1) + ".png";
     var iconLargeHTML = iconLargeHTMLleft + infobarIconSize + iconid + iconsrc + picUrl + iconHTMLright;
-    widgetAPI.putInnerHTML(document.getElementById("infobar-piconlarge"),iconLargeHTML);
+    document.getElementById("infobar-piconlarge").innerHTML =iconLargeHTML;
 };
 
 Display.setChannelDesc = function(desc)
 {
 	var elem ;
 	elem = document.getElementById("infobar-channel");
-	widgetAPI.putInnerHTML(elem,desc); 
+	elem.innerHTML =desc; 
 };
 
 Display.setClock = function()
@@ -259,8 +259,8 @@ Display.setClock = function()
 	timestring = hs + ":" + ms ;
 	maintimestring = hs + ":" + ms + ":" +ss;
 	
-	widgetAPI.putInnerHTML(elem,timestring);	
-	widgetAPI.putInnerHTML(mainelem,maintimestring);	
+	elem.innerHTML =timestring;	
+	mainelem.innerHTML =maintimestring;	
 };
 
 Display.showAudioBar = function()
@@ -272,7 +272,7 @@ Display.showAlertBar = function(inMessage)
 {
 	//set the message
 	var msgElem = document.getElementById('alertbar-text');
-	widgetAPI.putInnerHTML(msgElem,inMessage);
+	msgElem.innerHTML =inMessage;
 	//show the bar
 	document.getElementById('alertbar').style.display="block";
 	
@@ -299,12 +299,12 @@ Display.showAudioStreamsOnInfoBar = function(numberOfStreams)
 		if(Main.RECORDINGS_LIST == true)
 		{
 			document.getElementById('recbar-audiostreams').style.display="block";
-			widgetAPI.putInnerHTML(document.getElementById('recbar-audiostreams-text'),numberOfStreams.toString());
+			document.getElementById('recbar-audiostreams-text').innerHTML =numberOfStreams.toString();
 		}
 		else
 		{
 			document.getElementById('infobar-audiostreams').style.display="block";
-			widgetAPI.putInnerHTML(document.getElementById('infobar-audiostreams-text'),numberOfStreams.toString());
+			document.getElementById('infobar-audiostreams-text').innerHTML =numberOfStreams.toString();
 		}
 	}
 };
@@ -333,7 +333,7 @@ Display.setAudioStream = function(onAudio,ofTotalAudio)
 	 if(ofTotalAudio<=0)return;
 	var elem = document.getElementById('audiobar-text');
 	var text = onAudio + " / " + ofTotalAudio ;
-	widgetAPI.putInnerHTML(elem, text);
+	elem.innerHTML = text;
 	
 };
 
@@ -417,14 +417,14 @@ Display.setNow = function (title,time,desc)
     var infoNowTimeElement = document.getElementById("infobar-nowTime");
     var detailTitleElem= document.getElementById("nowDetail-title");
     var detailDescElem = document.getElementById("nowDetail-extended");
-    widgetAPI.putInnerHTML(titleElement, title);
-    widgetAPI.putInnerHTML(descElement, desc);
-    widgetAPI.putInnerHTML(timeElement , time);  
-    widgetAPI.putInnerHTML(infoNowElement , title);
-    widgetAPI.putInnerHTML(detailTitleElem , title);
-    widgetAPI.putInnerHTML(detailDescElem , desc);
-    widgetAPI.putInnerHTML(recNowElement , title);
-    widgetAPI.putInnerHTML(infoNowTimeElement , time);
+    titleElement.innerHTML = title;
+    descElement.innerHTML = desc;
+    timeElement .innerHTML = time;  
+    infoNowElement .innerHTML = title;
+    detailTitleElem .innerHTML = title;
+    detailDescElem .innerHTML = desc;
+    recNowElement .innerHTML = title;
+    infoNowTimeElement .innerHTML = time;
 };
 
 Display.setNext = function (title,time,desc)
@@ -439,14 +439,14 @@ Display.setNext = function (title,time,desc)
     var detailTitleElem= document.getElementById("nextDetail-title");
     var detailDescElem = document.getElementById("nextDetail-extended");
     
-    widgetAPI.putInnerHTML(titleElement, title);
-    widgetAPI.putInnerHTML(descElement, desc);
-    widgetAPI.putInnerHTML(timeElement , time);  
-    widgetAPI.putInnerHTML(infoNextElement , title);
-    widgetAPI.putInnerHTML(infoNextTimeElement , time);
+    titleElement.innerHTML = title;
+    descElement.innerHTML = desc;
+    timeElement .innerHTML = time;  
+    infoNextElement .innerHTML = title;
+    infoNextTimeElement .innerHTML = time;
     
-    widgetAPI.putInnerHTML(detailTitleElem , title);
-    widgetAPI.putInnerHTML(detailDescElem, desc);
+    detailTitleElem .innerHTML = title;
+    detailDescElem.innerHTML = desc;
 };
 
 
@@ -458,14 +458,14 @@ Display.setNoEPG = function()
     var nxtElem = document.getElementById("nextprog");
     var descElement = document.getElementById("nowdesc");
     var timeElement = document.getElementById("nowtime");
-    widgetAPI.putInnerHTML(descElement, "");
-    widgetAPI.putInnerHTML(timeElement, "");
+    descElement.innerHTML = "";
+    timeElement.innerHTML = "";
     descElement = document.getElementById("nextdesc");
     timeElement = document.getElementById("nexttime");
-    widgetAPI.putInnerHTML(descElement, "");
-    widgetAPI.putInnerHTML(timeElement, "");
-    widgetAPI.putInnerHTML(descriptionElement, description);
-    widgetAPI.putInnerHTML(nxtElem, description);
+    descElement.innerHTML = "";
+    timeElement.innerHTML = "";
+    descriptionElement.innerHTML = description;
+    nxtElem.innerHTML = description;
 };
 
 Display.setNowNext = function()
@@ -530,14 +530,14 @@ Display.hideInfo = function()
 
 Display.setStreamErrorDetails = function(description,message)
 {
-	widgetAPI.putInnerHTML(document.getElementById('streamerrorText'),description);
-	widgetAPI.putInnerHTML(document.getElementById('streamerrorDetailMessage'),message);
+	document.getElementById('streamerrorText').innerHTML =description;
+	document.getElementById('streamerrorDetailMessage').innerHTML =message;
 };
 
 Display.setErrorDetails = function(description,message)
 {
-	widgetAPI.putInnerHTML(document.getElementById('errorText'),description);
-	widgetAPI.putInnerHTML(document.getElementById('errorDetailMessage'),message);
+	document.getElementById('errorText').innerHTML =description;
+	document.getElementById('errorDetailMessage').innerHTML =message;
 };
 
 Display.showQuestion2 = function()
@@ -562,7 +562,7 @@ Display.setLoadingTxt = function(txt)
 {
 	Logger.log(Logger.INFO, 'Startup: ' + txt);
 	var elem = document.getElementById("loadingtxt");
-	widgetAPI.putInnerHTML(elem, txt);
+	elem.innerHTML = txt;
 	
 };
 
@@ -1038,7 +1038,7 @@ Display.getField = function(fieldName)
 Display.setField = function(fieldName,value)
 {
 	var elem = document.getElementById(fieldName);
-	widgetAPI.putInnerHTML(elem, value);
+	elem.innerHTML = value;
 };
 
 Display.setToggle = function(fieldName1,fieldName2)
@@ -1212,13 +1212,13 @@ Display.setTime = function(time)
     else
         timeHTML = "";     
     
-    widgetAPI.putInnerHTML(timeElement, timeHTML);
+    timeElement.innerHTML = timeHTML;
     
 };
 
 Display.status = function(status)
 {
-   // widgetAPI.putInnerHTML(this.statusDiv, status);
+   // this.statusDiv.innerHTML = status;
 };
 
 

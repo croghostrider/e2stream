@@ -17,11 +17,11 @@ Audio.init = function()
     {
         success = false;
     }*/
-    if(deviceapis && deviceapis.audiocontrol && deviceapis.audiocontrol.playSound)
+    if(webapis && webapis.audiocontrol && webapis.audiocontrol.playSound)
     {
     	Logger.logDebug("Enabled Audio control");
     	Audio.enabled=true;
-    	Audio.plugin = deviceapis.audiocontrol;
+    	Audio.plugin = webapis.audiocontrol;
         Audio.getVolume();
     }
     else
@@ -223,7 +223,7 @@ Audio.increaseVolume = function()
 	Audio.plugin.setVolume(Audio.volume);
 	Display.showVolume();
 	Audio.playSoundVolUp();
-	//Audio.plugin.playSound(deviceapis.audiocontrol.AUDIO_SOUND_TYPE_UP);	
+	//Audio.plugin.playSound(webapis.audiocontrol.AUDIO_SOUND_TYPE_UP);	
 };
 
 Audio.decreaseVolume = function()
@@ -241,7 +241,7 @@ Audio.decreaseVolume = function()
 	Audio.plugin.setVolume(Audio.volume);
 	Display.showVolume();
 	Audio.playSoundVolDown();
-	//Audio.plugin.playSound(deviceapis.audiocontrol.AUDIO_SOUND_TYPE_DOWN);	
+	//Audio.plugin.playSound(webapis.audiocontrol.AUDIO_SOUND_TYPE_DOWN);	
 };
 
 Audio.setRelativeVolume = function(delta)

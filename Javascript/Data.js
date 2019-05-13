@@ -20,7 +20,7 @@ var Data =
     nowTime             : "UNSET",
     nextTitle           : "UNSET",
     nextTime            : "UNSET",
-    ipAddress 			: "...",
+    ipAddress 			: "192.168.178.62",
     removeNumbers		: "N",
     defaultport			: "80",
 	streamport			: "8001",
@@ -88,10 +88,7 @@ Data.getOnField = function(){return this.onField;};
 Data.getStartFieldNo = function(){return this.START_FIELD;};
 Data.getNumberFields = function(){return this.NUMBER_FIELDS;};
 
-Data.getStartBouquetForSettings = function()
-{
-	return this.startBouquet;
-};
+Data.getStartBouquetForSettings = function(){return this.startBouquet;};
 
 Data.getStartBouquet = function()
 {
@@ -226,25 +223,13 @@ Data.getBouquetDescriptionsPlusLast = function()
 	return list;
 };
 
-Data.getBouquetDescriptions = function()
-{
-	return this.bouquetDescription;
-};
+Data.getBouquetDescriptions = function(){return this.bouquetDescription;};
 
-Data.setBouquetIDs = function(list)
-{
-	this.bouquetIDs = list;
-};
+Data.setBouquetIDs = function(list){this.bouquetIDs = list;};
 
-Data.getBouquetIDs = function()
-{
-	return this.bouquetIDs;
-};
+Data.getBouquetIDs = function(){return this.bouquetIDs;};
 
-Data.getOnBouquet = function()
-{
-	return this.onBouquet;
-};
+Data.getOnBouquet = function(){return this.onBouquet;};
 
 Data.setOnBouquet = function (bid)
 {
