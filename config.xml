@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns='http://www.samsung.com/'>
-    <previewjs>PreviewVideoTutorial</previewjs>
-    <type>user</type>
-    <cpname/>
-    <cplogo/>
-    <cpauthjs/>
-      <ThumbIcon>Images/icon/Tutorial_Video_106.png</ThumbIcon>
-    <BigThumbIcon>Images/icon/Tutorial_Video_115.png</BigThumbIcon>
-    <ListIcon>Images/icon/Tutorial_Video_85.png</ListIcon>
-    <BigListIcon>Images/icon/Tutorial_Video_95.png</BigListIcon>
-  
-    <ver>0.0</ver>
-    <mgrver/>
-    <fullwidget>y</fullwidget>
-	<movie>y</movie>
-    <srcctl>y</srcctl>
-    <ticker>n</ticker>
-    <childlock>n</childlock>
-    <audiomute>n</audiomute>
-    <videomute>n</videomute>
-    <dcont>y</dcont>
-    <widgetname>E2Stream</widgetname>
-    <description>Stream from your Enigma2 satellite box to your Samsung smart TV</description>
-    <width>960</width>
-    <height>540</height>
-    <author>
-        <name>Pembo</name>
-        <email>e2stream@pembo.co.uk</email>
-        <link>http://www.pembo.co.uk/e2stream</link>
-        <organization>Pembo.co.uk</organization>
-    </author>
-<autoUpdate>y</autoUpdate>
+<widget xmlns:tizen="http://tizen.org/ns/widgets" xmlns="http://www.w3.org/ns/widgets" id="http://yourdomain/E2Streamv" version="1.0.0" viewmodes="maximized">
+    <tizen:application id="1C87NOUhzK.E2Streamv" package="1C87NOUhzK" required_version="3.0"/>
+    <content src="index.html"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <icon src="Images/icon/Tutorial_Video_115.png"/>
+    <name>E2Streamv</name>
+    <tizen:privilege name="http://developer.samsung.com/privilege/avplay"/>
+    <tizen:privilege name="http://developer.samsung.com/privilege/productinfo"/>
+    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.read"/>
+    <tizen:privilege name="http://tizen.org/privilege/filesystem.write"/>
+    <tizen:profile name="tv"/>
+    <tizen:setting screen-orientation="auto-rotation" context-menu="enable" background-support="disable" encryption="disable" install-location="auto" hwkey-event="enable"/>
 </widget>

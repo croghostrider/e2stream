@@ -63,8 +63,8 @@ var Main =
 
 Main.setScreenMode = function(inMode)
 {
-	Logger.log(Logger.DEBUG, 'Setting screen mode: ' +inMode );
-	//Logger.logDebug("caller is " + arguments.callee.caller.toString());  
+	console.log('Setting screen mode: ' +inMode );
+	//console.log("caller is " + arguments.callee.caller.toString());  
 	
 	Main.SCREENMODE = inMode;
 	
@@ -112,13 +112,13 @@ Main.setScreenMode = function(inMode)
 		//If multi-transcoder is on, set the disabled transcode view 
 		if(Display.getToggle('a3', 'a4')==1)
 		{
-			Logger.logDebug("Multi-transcoder enabled");
+			console.log("Multi-transcoder enabled");
 			Utilities.getElement("disableTranscodeInput").className="transcodeDisabled";
 			//Utilities.getElement("disableTranscode2Input").className="transcode2Disabled";
 		}
 		else
 		{
-			Logger.logDebug("Multi-transcoder not enabled");
+			console.log("Multi-transcoder not enabled");
 			Utilities.getElement("disableTranscodeInput").className="transcodeNoDisabled";
 			//Utilities.getElement("disableTranscode2Input").className="transcode2NoDisabled";		
 		}
@@ -152,7 +152,7 @@ Main.setScreenMode = function(inMode)
 		Display.show("advancedSettingsPanel",null);
 		if(Display.getToggle('a3', 'a4')==1)
 		{
-			Logger.logDebug("Multi-Transcode turned on");
+			console.log("Multi-Transcode turned on");
 			Utilities.getElement("disabledBack").style.display="none";
 		}
 		else Utilities.getElement("disabledBack").style.display="";
@@ -248,7 +248,7 @@ Main.onLoadMain = function()
 	Main.setScreenMode(Main.STARTING);
 	Display.setLoadingTxt("Starting");
 	
-	Logger.logDebug(">>>>>>>>>>>>>>>About to call the init player from onLoadMain");
+	console.log(">>>>>>>>>>>>>>>About to call the init player from onLoadMain");
 	Main.callFunctionWithDelay(500,Main.initPlayer);
 };
 
@@ -284,7 +284,7 @@ Main.processChannelList = function()
 /*
 	var matchexp = /[0-9]{1,}\s\-\s.+/g;
     var res = firstVid.match(matchexp);
-    Logger.logDebug("matched res: " + res);
+    console.log("matched res: " + res);
     if(Main.FIRST_RUN == true && res && res !=null && res.length > 0)
     {
     	//Here ask the question about filtering channel numbers;
@@ -309,7 +309,7 @@ Main.processChannelList = function()
     	Main.callFunctionWithDelay(1000, Main.initialisationComplete);
     }
     
-    widgetAPI.sendReadyEvent();
+    //widgetAPI.sendReadyEvent();
     //sf.key.unregisterKey(sf.key.VOL_DOWN);
     //sf.key.unregisterKey(sf.key.VOL_UP);
     //sf.key.registerKey(sf.key.RETURN);
@@ -365,7 +365,7 @@ Main.initPlayer = function()
     //Main.playerObj.init();
     Main.playerObj.stopCallback = function()
     {
-        Logger.logDebug("Stop Callback - initPlayer");
+        console.log("Stop Callback - initPlayer");
   	  	Main.setWindowMode();
         Display.show("main",410);
         VideoOverlay.hide();
@@ -461,15 +461,15 @@ Main.deleteChar = function()
 	{
 		var elem = document.getElementById(onField);
 		var onFieldVal = elem.innerHTML;
-		Logger.logDebug("on Field Val [" +onFieldVal + "]");
+		console.log("on Field Val [" +onFieldVal + "]");
 		//var maxSize = 1;
 		var size = onFieldVal.length;
 		if(size>0)
 		{
 			onFieldVal = onFieldVal.substr(0,size-1);
-			Logger.logDebug("on Field Val [" +onFieldVal + "]");
+			console.log("on Field Val [" +onFieldVal + "]");
 			//elem.InnerHTML=onFieldVal;
-			widgetAPI.putInnerHTML(elem, onFieldVal);
+			elem.innerHTML = onFieldVal;
 		}
 			
 	}
@@ -558,10 +558,10 @@ Main.updateCurrentVideo = function(move,count)
 	else
 	{
 		Display.setVideoListPosition(count);
-		Logger.logDebug("Set video list position: " + SlidingWindow.pointer );
+		console.log("Set video list position: " + SlidingWindow.pointer );
 		
 	}
-	//Logger.logDebug("Updating current video:" + move);
+	//console.log("Updating current video:" + move);
     var vidUrl = Data.getVideoURL(SlidingWindow.pointer);
     
     //And add in the multi-transcode fix here if mt is enabled
@@ -572,7 +572,7 @@ Main.updateCurrentVideo = function(move,count)
     var extraParams="";
     if(Data.getMtEnabled()=='Y')
     {
-    	Logger.logDebug("MT is Enabled");
+    	console.log("MT is Enabled");
     	vidUrl = vidUrl.replace("*PORT*",Data.getStreamPort());
     	extraParams += "?bitrate=";
     	extraParams += Data.getMtBitrate();
@@ -607,12 +607,12 @@ Main.updateCurrentVideo = function(move,count)
     Main.playerObj.setVideoURL( vidUrl + extraParams );
 	
     
-    Logger.logDebug("VidURL: " + vidUrl);
+    console.log("VidURL: " + vidUrl);
     
     
     //Display.setDescription( Data.getVideoDescription(this.selectedVideo));
     Display.setNoEPG();
-    //Logger.logDebug('selectedVideo' + this.selectedVideo);
+    //console.log('selectedVideo' + this.selectedVideo);
     if (!SlidingWindow.pointer) SlidingWindow.pointer = 0;
     
     if(Main.RECORDINGS_LIST == false)
@@ -653,7 +653,7 @@ Main.initPlayerToChannelList = function()
     //Main.playerObj.init();
     Main.playerObj.stopCallback = function()
     {
-        Logger.logDebug("Stop Callback - initPlayerTochL");
+        console.log("Stop Callback - initPlayerTochL");
   	  	Main.setWindowMode();
         Display.show("main",410);
         VideoOverlay.hide();
@@ -670,7 +670,7 @@ Main.initPlayerToRecordingsList = function()
 	
     Main.playerObj.stopCallback = function()
     {
-    	Logger.logDebug("Stop CallbackToRecord");
+    	console.log("Stop CallbackToRecord");
   	  	Main.setWindowMode();
         Display.show("main",410);
         VideoOverlay.hide();
@@ -788,7 +788,7 @@ Main.keyDown = function()
 				ParentalSettings.setData();
 				if(ParentalSettings.isValid())
 				{
-					Logger.logDebug("PC/Valid setings................ Now save");
+					console.log("PC/Valid setings................ Now save");
 		  			Settings.save();
 	    			Main.setScreenMode(3);
 				}
@@ -837,19 +837,19 @@ Main.keyDown = function()
 			 case tvKey.KEY_9:
 			 case tvKey.KEY_0:
 			 case 69:
-				 Logger.logDebug("ON PARENTAL FIELD: " + Data.getOnFieldNo());
+				 console.log("ON PARENTAL FIELD: " + Data.getOnFieldNo());
 				 if(Data.getOnFieldNo()>=1 && Data.getOnFieldNo()<=4)
 				 {
 					if(keyCode==69)
 					{
-						//Logger.logDebug(">> Deleting char in Field: " + Data.getOnFieldNo());
+						//console.log(">> Deleting char in Field: " + Data.getOnFieldNo());
 						//Main.deleteChar();
 					}
 					else
 					{
 						inVal = Main.receiveSingleDigitInput(keyCode);
-						Logger.logDebug(">> Input a " + inVal);
-				 		Logger.logDebug(">> Setting Field: " + Data.getOnFieldNo());
+						console.log(">> Input a " + inVal);
+				 		console.log(">> Setting Field: " + Data.getOnFieldNo());
 				 		Display.setField("p" + Data.getOnFieldNo().toString(), inVal);
 					}
 				 }
@@ -913,12 +913,12 @@ Main.keyDown = function()
 			 case tvKey.KEY_9:
 			 case tvKey.KEY_0:
 			 case 69:
-				 Logger.logDebug("Numeric Key Pressed on field: " + Data.getOnFieldNo());
+				 console.log("Numeric Key Pressed on field: " + Data.getOnFieldNo());
 				 if(Data.getOnFieldNo()>=5 && Data.getOnFieldNo()<=9)
 				 {
 					if(keyCode==69)
 					{
-							Logger.logDebug(">> Deleting char in Field: " + Data.getOnFieldNo());
+							console.log(">> Deleting char in Field: " + Data.getOnFieldNo());
 							Main.deleteChar();
 					}
 					else
@@ -937,24 +937,24 @@ Main.keyDown = function()
 	    {
 	    	case tvKey.KEY_GREEN:
 	    		//Logger.logDebugt('Save');
-	    		//Logger.logDebug("Spinner set: " + Display.getSpinFieldValue());
+	    		//console.log("Spinner set: " + Display.getSpinFieldValue());
 	    		Audio.playSoundEnter();
 	    		Data.setStartBouquet(Display.getSpinFieldValue());
 	    		Settings.save();
 	    		Main.callFunctionWithDelay(500,Main.processChannelList);
 	    		
 	        	Main.enableKeys();      
-	        	widgetAPI.sendReadyEvent();
+	        	//widgetAPI.sendReadyEvent();
 	    		break;	
 	    		
 		    case tvKey.KEY_LEFT:
-		    	//Logger.logDebug("left");
+		    	//console.log("left");
 		    	Audio.playSoundLeft();
 		    	Display.spinField("f19",Data.getBouquetDescriptionsPlusLast(), Display.LEFT);
 		    	break;
 		    	
 		    case tvKey.KEY_RIGHT:
-		    	//Logger.logDebug("right");
+		    	//console.log("right");
 		    	Audio.playSoundRight();
 		    	Display.spinField("f19",Data.getBouquetDescriptionsPlusLast(), Display.RIGHT);
 		    	break;
@@ -1007,7 +1007,7 @@ Main.keyDown = function()
 		    	}
 		    	else
 		    	{
-		    		Logger.logDebug("Didn't match toggle field!!!!!!");
+		    		console.log("Didn't match toggle field!!!!!!");
 		    	}
 		    	Settings.save();
 		    	Display.initSpinField("f19",Data.getBouquetDescriptionsPlusLast(),Data.getBouquetDescriptionsPlusLast()[0]);
@@ -1109,7 +1109,7 @@ Main.keyDown = function()
 		    case 69:
 		    	if(keyCode==69)
 				{
-					Logger.logDebug(">> Deleting char in Field: " + Data.getOnFieldNo());
+					console.log(">> Deleting char in Field: " + Data.getOnFieldNo());
 					Main.deleteChar();
 				}
 				else
@@ -1192,7 +1192,7 @@ Main.keyDown = function()
 	
 	        case tvKey.KEY_1:
 	        	if(this.mode != this.FULLSCREEN)return;
-	            Logger.logDebug("Rew30s");
+	            console.log("Rew30s");
 	        	if(Main.playerObj.getState() != Main.playerObj.PAUSED && Main.RECORDINGS_LIST == true)
 	        		Main.playerObj.skipBackwardVideo(30);
 	        	break;
@@ -1205,31 +1205,31 @@ Main.keyDown = function()
 	        	break;
 	        case tvKey.KEY_3:
 	        	if(this.mode != this.FULLSCREEN)return;
-	        	Logger.logDebug("FFwd30s");
+	        	console.log("FFwd30s");
 	            if(Main.playerObj.getState() != Main.playerObj.PAUSED && Main.RECORDINGS_LIST == true)
 	            	Main.playerObj.skipForwardVideo(30);
 	        	break;
 	        case tvKey.KEY_4:
 	        	if(this.mode != this.FULLSCREEN)return;
-	        	Logger.logDebug("Rew60s");
+	        	console.log("Rew60s");
 	            if(Main.playerObj.getState() != Main.playerObj.PAUSED && Main.RECORDINGS_LIST == true)
 	            	Main.playerObj.skipBackwardVideo(60);
 	        	break;
 	        case tvKey.KEY_6:
 	        	if(this.mode != this.FULLSCREEN)return;
-	        	Logger.logDebug("FFWs60s");
+	        	console.log("FFWs60s");
 	            if(Main.playerObj.getState() != Main.playerObj.PAUSED && Main.RECORDINGS_LIST == true)
 	            	Main.playerObj.skipForwardVideo(60);
 	        	break;
 	        case tvKey.KEY_7:
 	        	if(this.mode != this.FULLSCREEN)return;
-	        	Logger.logDebug("Rew120s");
+	        	console.log("Rew120s");
 	            if(Main.playerObj.getState() != Main.playerObj.PAUSED && Main.RECORDINGS_LIST == true)
 	            	Main.playerObj.skipBackwardVideo(120);
 	        	break;
 	        case tvKey.KEY_9:
 	        	if(this.mode != this.FULLSCREEN)return;
-	        	Logger.logDebug("FFwd120s");
+	        	console.log("FFwd120s");
 	            if(Main.playerObj.getState() != Main.playerObj.PAUSED && Main.RECORDINGS_LIST == true)
 	            	Main.playerObj.skipForwardVideo(120);
 	        	break;
@@ -1297,7 +1297,7 @@ Main.keyDown = function()
 	            break;
 	
 	        case tvKey.KEY_LEFT:
-	        	Logger.logDebug("Left");
+	        	console.log("Left");
 	        	if(this.mode == this.FULLSCREEN)break;
     			if(ParentalSettings.isBouquetLockEnabled()==true)
     			{
@@ -1311,7 +1311,7 @@ Main.keyDown = function()
 	        	nbids = Data.getNumberOfBouquets();
 	        	onbid--;
 	        	if(onbid <0 )onbid=nbids-1; 
-	        	Logger.logDebug("On Bouquet [" + onbid +"]");
+	        	console.log("On Bouquet [" + onbid +"]");
 	        	Data.setOnBouquet(onbid);
 	        	
 	        	Data.populateVideoListForDisplay(Data.getOnBouquet());
@@ -1319,14 +1319,14 @@ Main.keyDown = function()
 	        	Display.setBouquetDesc();
 	        	Display.setVideoList( Data.getVideoNames(), Data.getVideoIDs() );
 	        	this.selectFirstVideo();
-	        	Logger.logDebug("New Video Size: " + Data.getVideoNames().length);
+	        	console.log("New Video Size: " + Data.getVideoNames().length);
 	    		//Display.resetSelectors();
 	        	//Main.updateCurrentVideo(2,0);
 	        	Display.updateVideoList();
 	        	break;
 	        
 	        case tvKey.KEY_RIGHT:
-	        	Logger.logDebug("Right");
+	        	console.log("Right");
 	        	if(this.mode == this.FULLSCREEN)break;
 	        	if(ParentalSettings.isBouquetLockEnabled()==true)
     			{
@@ -1339,7 +1339,7 @@ Main.keyDown = function()
 	        	nbids = Data.getNumberOfBouquets();
 	        	onbid++;
 	        	if(onbid == nbids )onbid=0; 
-	        	Logger.logDebug("On Bouquet [" + onbid +"]");
+	        	console.log("On Bouquet [" + onbid +"]");
 	        	
 	        	Data.setOnBouquet(onbid);
 	        	Data.populateVideoListForDisplay(Data.getOnBouquet());
@@ -1348,7 +1348,7 @@ Main.keyDown = function()
 	        	Display.setVideoList( Data.getVideoNames(), Data.getVideoIDs() );
 	        	this.selectFirstVideo(this.START);
 	        	//SlidingWindow.reset();
-	        	Logger.logDebug("New Video Size: " + Data.getVideoNames().length);
+	        	console.log("New Video Size: " + Data.getVideoNames().length);
 	        	//Display.resetSelectors();
 	        	//Main.updateCurrentVideo(2,0);
 	        	Display.updateVideoList();
@@ -1472,7 +1472,7 @@ Main.keyDown = function()
                	Main.callFunctionWithDelay(500, Main.getChannelListAfterRecordings);
 	        	break;
 	        default:
-	            //Logger.logDebug("Unhandled key");
+	            //console.log("Unhandled key");
 	            break;
 	    }  
 	}
@@ -1492,9 +1492,9 @@ Main.keyDown = function()
 	 	case tvKey.KEY_RETURN:
 		case tvKey.KEY_PANEL_RETURN:	
 			Audio.playSoundBack();
-			Logger.logDebug("RETURN Key Pressed");
+			console.log("RETURN Key Pressed");
 			
-			widgetAPI.blockNavigation(event);
+			event.preventDefault(event);
 		    if(this.mode == this.FULLSCREEN)
 		    {
 		    	
@@ -1510,7 +1510,7 @@ Main.keyDown = function()
 		    else
 		    {
 		    	  
-		    	//widgetAPI.blockNavigation(event);
+		    	//event.preventDefault(event);
 		    	Main.playerObj.stopVideo();
 		    	Alert.setDialog("Exit?", "Are you sure you want to leave E2Stream?<br>Please confirm using one of the options below", 
 		    			"Return to E2Stream", 
@@ -1522,17 +1522,17 @@ Main.keyDown = function()
 		    			Main.ReturnStandby, 
 		    			Main.ReturnDeepStandby);
 		    	Alert.showDialog();
-		    	//widgetAPI.sendReturnEvent();
-		    	//widgetAPI.blockNavigation(event);
+		    	//tizen.application.getCurrentApplication().hide();
+		    	//event.preventDefault(event);
 		    }
 			break;
 			
     	case tvKey.KEY_EXIT:
     	case 45: //exit
     		Audio.playSoundBack();
-    		Logger.logDebug("Exit Key Pressed");
-    		widgetAPI.sendExitEvent();
-        	//widgetAPI.sendReturnEvent();
+    		console.log("Exit Key Pressed");
+    		tizen.application.getCurrentApplication().exit();
+        	//tizen.application.getCurrentApplication().hide();
         	break;
         	
     	case tvKey.KEY_MENU:
@@ -1546,11 +1546,11 @@ Main.keyDown = function()
     		{
     			Main.DEBUG = true;
     			Logger.init();
-    			Logger.logDebug("Enabling Debug");
+    			console.log("Enabling Debug");
     		}
     		else
     		{
-    			Logger.logDebug("Disabling Debug");
+    			console.log("Disabling Debug");
     			Main.DEBUG = false;
     			Logger.init();
     		}
@@ -1564,13 +1564,13 @@ Main.keyDown = function()
  */
 Main.ReturnCancel = function()
 {
-	Logger.logDebug("Return cancel");
+	console.log("Return cancel");
 };
 
 Main.ReturnExit = function()
 {
-	Logger.logDebug("Return exit");
-	widgetAPI.sendReturnEvent();
+	console.log("Return exit");
+	tizen.application.getCurrentApplication().hide();
    
 };
 
@@ -1588,7 +1588,7 @@ Main.deepStandBy = function()
 
 Main.ReturnStandby = function()
 {
-	Logger.logDebug("Return and Standby");
+	console.log("Return and Standby");
 	Display.setLoadingTxt("Suspending your E2 box before exiting");
 	Main.setScreenMode(Main.STARTING);
 	Main.callFunctionWithDelay(500, Main.normalStandBy);
@@ -1596,7 +1596,7 @@ Main.ReturnStandby = function()
 
 Main.ReturnDeepStandby = function()
 {
-	Logger.logDebug("Return and deep standby");
+	console.log("Return and deep standby");
 	Display.setLoadingTxt("Deep suspending your E2 box before exiting");
 	Main.setScreenMode(Main.STARTING);
 	Main.callFunctionWithDelay(Main.deepStandBy());
@@ -1604,8 +1604,8 @@ Main.ReturnDeepStandby = function()
 
 Main.exitReturn = function()
 {
-	Logger.logDebug("Now exiting the app");
-	widgetAPI.sendReturnEvent();
+	console.log("Now exiting the app");
+	tizen.application.getCurrentApplication().hide();
 	Display.setLoadingTxt("Terminated");
 };
 
@@ -1681,20 +1681,20 @@ Main.handlePlayKey = function()
     switch ( Main.playerObj.getState() )
     {
         case Main.playerObj.STOPPED:
-        	Logger.logDebug("Player is stopped - starting to play");
+        	console.log("Player is stopped - starting to play");
         	Main.playerObj.bufferingComplete=false;
         	if(Data.getZap()=='Y')Server.zapToChannel(Data.getVideoID(SlidingWindow.pointer));
         	Main.playerObj.playVideo();
     		break;
 
         case Main.playerObj.PAUSED:
-        	Logger.logDebug("Player is paused - resuming");
+        	console.log("Player is paused - resuming");
         	VideoOverlay.showRecordingPlaybackText();
         	Main.playerObj.resumeVideo();
             break;
             
         case Main.playerObj.PLAYING:
-        	Logger.logDebug("Player is playing - restart stream");
+        	console.log("Player is playing - restart stream");
         	Main.playerObj.stopVideo();
         	Main.playerObj.bufferingComplete=false;
         	if(Data.getZap()=='Y')Server.zapToChannel(Data.getVideoID(SlidingWindow.pointer));
@@ -1703,7 +1703,7 @@ Main.handlePlayKey = function()
             break;
 
         default:
-            Logger.logDebug("Ignoring play key, not in correct state");
+            console.log("Ignoring play key, not in correct state");
             break;
     }
 };
@@ -1719,7 +1719,7 @@ Main.handlePauseKey = function()
             break;
 
         default:
-            Logger.logDebug("Ignoring pause key, not in correct state");
+            console.log("Ignoring pause key, not in correct state");
             break;
     }
 };
@@ -1727,10 +1727,10 @@ Main.handlePauseKey = function()
 
 Main.selectNext5Video = function(down)
 {
-	Logger.logDebug("Selected video: " + SlidingWindow.pointer);
+	console.log("Selected video: " + SlidingWindow.pointer);
 	//this.selectedVideo = (this.selectedVideo + 5);
 	//if(this.selectedVideo >= Data.getVideoCount())this.selectedVideo=Data.getVideoCount()-1;
-	Logger.logDebug("Selected video: " + SlidingWindow.pointer);
+	console.log("Selected video: " + SlidingWindow.pointer);
 	this.updateCurrentVideo(down,5);
     Display.updateVideoList();	
 };
@@ -1745,10 +1745,10 @@ Main.selectPrevious5Video = function(up)
 
 Main.selectFirstVideo = function()
 {
-	Logger.logDebug("Video Count: " + Data.getVideoCount());
+	console.log("Video Count: " + Data.getVideoCount());
 	if(Data.getVideoCount()<=0)
 	{
-		Logger.logDebug("selectFirstVideo: No videos in list");
+		console.log("selectFirstVideo: No videos in list");
 		return;
 	}
 	SlidingWindow.reset();
@@ -1791,7 +1791,7 @@ Main.setFullScreenMode = function()
 
 Main.setWindowMode = function()
 {
-	Logger.logDebug("setWindowMode");
+	console.log("setWindowMode");
 	//Logger.log(Logger.WARN,"caller is " + arguments.callee.caller.toString());
     if (this.mode != this.WINDOW)
     {
@@ -1805,9 +1805,9 @@ Main.setWindowMode = function()
 
 Main.toggleMode = function()
 {
-	Logger.logDebug("Main.toggleMode");
-	//Logger.logDebug("caller is " + arguments.callee.caller.toString());
-    Logger.logDebug("Player state is: " + Main.playerObj.getState());
+	console.log("Main.toggleMode");
+	//console.log("caller is " + arguments.callee.caller.toString());
+    console.log("Player state is: " + Main.playerObj.getState());
 	/*if(Main.playerObj.getState() == Main.playerObj.PAUSED)
     {
 		Main.playerObj.resumeVideo();	
@@ -1825,7 +1825,7 @@ Main.toggleMode = function()
 	            break;
 	            
 	        default:
-	            //Logger.logDebug("ERROR: unexpected mode in toggleMode");
+	            //console.log("ERROR: unexpected mode in toggleMode");
 	            break;
 	    }
 	/*}*/

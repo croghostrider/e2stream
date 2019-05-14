@@ -33,13 +33,13 @@ var Player =
 var bufferingCB = {
 	onbufferingstart : function () {
 		//console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! buffering started");
-		Logger.log(Logger.INFO,"Bufering Started");
+		console.log("Bufering Started");
 		is_buffering = true;
 		Player.bufferingComplete=false;
 		//Player.onAudioStream = 0;
 		Player.setTotalTime();
-		Logger.log(Logger.INFO, "Subtitle Count: " + Player.AVPlayer.totalNumOfSubtitle);
-		Logger.log(Logger.INFO, "Audio Stream Count: " + Player.AVPlayer.totalNumOfAudio);
+		console.log("Subtitle Count: " + Player.AVPlayer.totalNumOfSubtitle);
+		console.log("Audio Stream Count: " + Player.AVPlayer.totalNumOfAudio);
 		if(Player.AVPlayer.totalNumOfAudio>1)
 		{
 			//Player.onAudioStream = 1;
@@ -56,7 +56,7 @@ var bufferingCB = {
     },
     onbufferingcomplete: function () {
         //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! buffering complete");
-        Logger.log(Logger.INFO,"Buffering Complete");
+        console.log("Buffering Complete");
         is_buffering = false;
         Player.onBufferingComplete();
     }
@@ -85,14 +85,14 @@ var playCB = {
     },
     onstreamcompleted: function () {
         //console.log("streaming completed");
-        Logger.log(Logger.DEBUG, "Streaming completed");
+        console.log("Streaming completed");
     	Player.stopVideo();
     },
     onerror: function (error) {
         //console.log(error.name);
         //Player.stopVideo();
-    	Logger.log(Logger.ERROR, "Player Error Name: " + error.name);
-    	Logger.log(Logger.ERROR, "Player Error Mesg: " + error.message);
+    	console.error("Player Error Name: " + error.name);
+    	console.error("Player Error Mesg: " + error.message);
     	Player.cancelStream(error.name,error.message);
     	
     }
@@ -100,7 +100,7 @@ var playCB = {
 
 Player.cancelStream= function(inName,inMsg)
 {
-	Logger.log(Logger.WARN, "Cancelling the stream playback");
+	console.log("WARN Cancelling the stream playback");
 	Player.stopVideo();
 	if(inName==null||inName.length ==0)inName = "Stream Communication Problem"; 
 	if(inMsg==null||inMsg.length ==0)inMsg="Failed to start the channel stream <br>Are all your tuners in use?";
@@ -122,7 +122,7 @@ Player.nextAudioStream = function()
 		//Logger.logDebug("On Audio > number available streams - back around to 0");
 		Player.onAudioStream=0;
 	}
-	Logger.log(Logger.DEBUG,"Switching to Audio Stream [" + (Player.onAudioStream + 1) + "] of [" + Player.AVPlayer.totalNumOfAudio +"]");
+	console.log("Switching to Audio Stream [" + (Player.onAudioStream + 1) + "] of [" + Player.AVPlayer.totalNumOfAudio +"]");
 	onAudio = Player.onAudioStream + 1;
 	//Logger.log(Logger.DEBUG,"On Audio: " + onAudio);
 	ofAudio = Player.AVPlayer.totalNumOfAudio;
@@ -139,27 +139,7 @@ Player.init = function()
 	var success = true;
 	Logger.logDebug("Player is Configured as: " + Data.getPlayerName());
 	this.state = this.STOPPED;
-	if(Data.getPlayerName()=="Default")
-	{
-		Utilities.removeJSFile("Javascript/PlayerLegacy.js");
-	    try
-	    {
-			webapis.avplay.getAVPlay(Player.onAVPlayObtained, Player.onGetAVPlayError);
-		}
-	    catch(e)
-	    {
-			Logger.log(Logger.FATAL, "getAVplay Exception :[" +e.code + "] " + e.message);
-		}
-	    Main.playerObj = Player.instance();
-	}
-	else
-	{
-		Utilities.removeJSFile("Javascript/PlayerNew.js");
-    	
-    	success = PlayerLegacy.init();
-    	Main.playerObj = PlayerLegacy.instance();
-	}
-	
+	Main.playerObj = Player.instance();
 	return success;
 };
 
@@ -193,25 +173,25 @@ Player.onAVPlayObtained = function(avplay) {
 	 * http://www.samsungdforum.com/SamsungDForum/ForumView/f0cd8ea6961d50c3?forumID=88555f42acdd3243&currentPage=1&searchText=avplayer&selectcontents=1&selectPageSize=20&sorting_target=CreateDate&sorting_type=desc
 	 */
 
-	Logger.log(Logger.DEBUG,"Player initialised");
+	console.log("Player initialised");
 };
 
 
 Player.onGetAVPlayError = function() {
-	Logger.log(Logger.WARN,'onGetAVPlayError: ' + error.message);
+	console.error('onGetAVPlayError: ' + error.message);
 };
 
 Player.onError = function(){
-	Logger.log(Logger.WARN,'Player.onError');
+	console.error("Player.onError");
 };
 
 Player.onSuccess = function(){
-	Logger.log(Logger.DEBUG,'Player.onSuccess');
+	console.log("Player.onSuccess");
 };
 
 Player.deinit = function()
 {
-	Logger.log(Logger.INFO,"Deinitializing Player");
+	console.log("Deinitializing Player");
 };
 
 Player.setWindow = function()
@@ -265,14 +245,14 @@ Player.setVideoURL = function(url)
 
 Player.playVideo = function()
 {
-	Logger.log(Logger.INFO, "Player.playVideo");
+	console.log("Player.playVideo");
     if (this.url == null)
     {
-        Logger.log(Logger.WARN,"No videos to play");
+        console.error("No videos to play");
     }
     else
     {
-    	Logger.logMessage("Playing Video [" + this.url +"]");
+    	console.log("Playing Video [" + this.url +"]");
         this.state = this.PLAYING;
 
         Player.onAudioStream = 0;
