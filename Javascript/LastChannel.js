@@ -1,6 +1,6 @@
 var LastChannel =
 {
-	filename			: curWidget.id + '/lastchannel.cache',
+	filename			: tizen.application.getCurrentApplication().appInfo.id + '/lastchannel.cache',
 	version				: "v4.3.0",
 
 	lastBouquetId		: "",
@@ -12,15 +12,15 @@ LastChannel.findLastBouquet = function()
 	var i;
 	for(i=0;i<Data.getBouquetIDs().length;i++)
 	{
-		Logger.logDebug("Checking [" + Data.getBouquetIDs()[i] + "] for match with [" + LastChannel.lastBouquetId + "]");
+		console.log("Checking [" + Data.getBouquetIDs()[i] + "] for match with [" + LastChannel.lastBouquetId + "]");
 		if(Data.getBouquetIDs()[i] == LastChannel.lastBouquetId)
 		{
-			Logger.logDebug("Found match!");
+			console.log("Found match!");
 			return i;
 		}
 	}
 	//Can't find it, return -1 to ignore
-	Logger.log(Logger.WARN,"Can't find last active bouquet");
+	console.log("WARN Can't find last active bouquet");
 	return -1;
 };
 
