@@ -496,7 +496,7 @@ Display.showError= function()
 {
 	document.getElementById("errorPopup").style.display="block";
 	Main.enableKeys();
-	widgetAPI.sendReadyEvent();
+	//widgetAPI.sendReadyEvent();
 };
 
 Display.hideError = function()
@@ -508,7 +508,7 @@ Display.showStreamError= function()
 {
 	document.getElementById("streamErrorPopup").style.display="block";
 	Main.enableKeys();
-	widgetAPI.sendReadyEvent();
+	//widgetAPI.sendReadyEvent();
 };
 
 Display.hideStreamError = function()
@@ -520,7 +520,7 @@ Display.showInfo = function()
 {
 	document.getElementById("aboutPanel").style.display="block";
 	Main.enableKeys();
-	widgetAPI.sendReadyEvent();
+	//widgetAPI.sendReadyEvent();
 };
 
 Display.hideInfo = function()

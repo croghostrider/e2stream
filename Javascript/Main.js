@@ -2,8 +2,8 @@
  * TODO: Infobar close reverts sliding window cache
  * 
  */
-var widgetAPI = new Common.API.Widget();
 var tvKey = new Common.API.TVKeyValue();
+var keys = {};
 
 var Main =
 {
@@ -173,9 +173,26 @@ Main.getScreenMode = function()
 };
 
 
+function registerKeys() {
+	// register & save info about all supported keys
+	var supportedKeys = tizen.tvinputdevice.getSupportedKeys(),
+		i = 0;
+		
+	console.log("register & save info about all supported keys");
+
+	for (i = 0; i < supportedKeys.length; i += 1) {
+		try {
+			tizen.tvinputdevice.registerKey(supportedKeys[i].name);
+		} catch (e) {
+			console.error('Failed to register ' + supportedKeys[i].name, e);
+		}
+		keys[supportedKeys[i].code] = supportedKeys[i].name;
+	}
+};
+
 Main.initialOnLoad = function()
 {
-	Logger.init();
+	registerKeys();
 	if(Main.CLEAR==true)Settings.clear();
 	
 	Display.hide("main",300);
@@ -187,17 +204,17 @@ Main.initialOnLoad = function()
 	
 	
 	/* ------------------------------------ */
-	if (deviceapis)
+	if (webapis)
 	{
 	    // ermagad
 	    deviceId = 
-	        //deviceapis.platform + '; ' +
-	        deviceapis.tv.info.getDeviceID() + ',' +
-	        deviceapis.tv.info.getModel() + ';';
-	        //deviceapis.tv.info.getFirmware() + '; ' +
-	        //deviceapis.tv.info.getCountry() + '; ' +
-	        //deviceapis.tv.info.getLanguage() + '; ' +
-	        //deviceapis.tv.info.getVersion() + '; ';
+			//webapis.productinfo + '; ' +
+	        webapis.productinfo.getDuid () + ',' +
+	        webapis.productinfo.getModel() + ';';
+	        //webapis.productinfo.getFirmware() + '; ' +
+	        //webapis.productinfo.getCountry() + '; ' +
+	        //webapis.productinfo.getLanguage() + '; ' +
+	        //webapis.productinfo.getVersion() + '; ';
 	}
 	else
 	{
