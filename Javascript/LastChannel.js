@@ -47,68 +47,44 @@ LastChannel.save = function(lastBouquetId,lastChannelId)
 {
 	LastChannel.lastBouquetId=lastBouquetId;
 	LastChannel.lastChannelId=lastChannelId;
-	Logger.log(Logger.INFO, "Saving Last Channel Cache");
-	Logger.log(Logger.DEBUG, "Bouquet [" + lastBouquetId + "]");
-	Logger.log(Logger.DEBUG, "Channel [" + lastChannelId + "]");
-	var fileSystemObj = new FileSystem();
-	var fileObj = fileSystemObj.openCommonFile(this.filename, 'w');
-	
-	if(!fileObj)
-	{
-		var bValid = fileSystemObj.isValidCommonPath(curWidget.id); 
-		if (!bValid) 
-		{ 
-	        fileSystemObj.createCommonDir(curWidget.id);    
-		}
-	}
-	fileObj = fileSystemObj.openCommonFile(this.filename, 'w');
-	fileObj.writeLine(Settings.version);
-	fileObj.writeLine(lastBouquetId);
-	fileObj.writeLine(lastChannelId);
-	fileSystemObj.closeCommonFile(fileObj);
-	
-	Logger.log(Logger.INFO, "Saved Last Channel Cache");
+	console.log("Saving Last Channel Cache");
+	console.log("Bouquet [" + lastBouquetId + "]");
+	console.log("Channel [" + lastChannelId + "]");
+	localStorage.setItem('Settings.version', Settings.version);
+	localStorage.setItem('lastBouquetId', lastBouquetId);
+	localStorage.setItem('lastChannelId', lastChannelId);	
+	console.log("Saved Last Channel Cache");
 };
 
 
 LastChannel.clear = function()
 {
-	var fileSystemObj = new FileSystem();
-	var bResult = fileSystemObj.deleteCommonFile(this.filename);
-	Logger.log(Logger.WARN, "Cleared Last Channel Cache");
+	localStorage.removeItem('lastChannelId');
+	localStorage.removeItem('lastBouquetId');
+	localStorage.removeItem('lastChannelId');	
+	console.log("WARN Cleared Last Channel Cache");
 	return bResult;
 };
 
 LastChannel.load = function()
 {
-	var fileSystemObj = new FileSystem();
-	var fileObj = fileSystemObj.openCommonFile(this.filename, 'r');
-	
-	if(!fileObj)
-	{
-		Logger.log(Logger.WARN,"Unable to open Last Channel Cache [" + this.filename + "]");
-		return;
-	}
-	var vers = fileObj.readLine();
+	var vers =  localStorage.getItem('Settings.version');
 	if(vers!=LastChannel.version)
 	{
-		fileSystemObj.closeCommonFile(fileObj);
 		LastChannel.clear();
-		Logger.log(Logger.WARN,"Old cache file format - therefore cleared!");
+		console.log("WARN Old cache file format - therefore cleared!");
 		//return false;
 	}
 	
-	var bouquetId = fileObj.readLine();
-	var channelId = fileObj.readLine();
+	var bouquetId = localStorage.getItem('lastBouquetId');
+	var channelId = localStorage.getItem('lastChannelId');
 	
-		
-	Logger.log(Logger.INFO,"Loaded Channel Cache");
-	Logger.logDebug("Bouquet Id:" + bouquetId);
-	Logger.logDebug("Channel Id: " + channelId);
+	console.log("INFO Loaded Channel Cache");
+	console.log("Bouquet Id:" + bouquetId);
+	console.log("Channel Id: " + channelId);
 	
 	LastChannel.lastBouquetId = bouquetId;
 	LastChannel.lastChannelId = channelId;
-	fileSystemObj.closeCommonFile(fileObj);
 	
 	return true;
 };
