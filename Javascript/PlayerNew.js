@@ -196,12 +196,13 @@ Player.deinit = function()
 
 Player.setWindow = function()
 {
-	Player.AVPlayer.setDisplayRect({
-		top: 54,
-		left: 470,
-		width: 420,
-		height: 200
-	});
+	try {
+		Player.AVPlayer.setDisplayRect(54, 470, 420, 200);
+		}
+		catch (e)
+		{
+			console.log(e);
+		}
 	//Player.AVPlayer.setZIndex(150);
 	
 	Player.AVPlayer.setDisplayArea({
@@ -272,7 +273,7 @@ Player.playVideo = function()
 
 Player.pauseVideo = function()
 {
-	Logger.log(Logger.INFO, "Player pause requesed");
+	console.log("Player pause requesed");
 	VideoOverlay.showPauseText();
 	VideoOverlay.showInfoBarNoTimerNoToggle();
     this.state = this.PAUSED;
@@ -281,7 +282,7 @@ Player.pauseVideo = function()
 
 Player.stopVideo = function()
 {
-	Logger.log(Logger.INFO, "Player stop requesed");
+	console.log("Player stop requesed");
     //Logger.logDebug("caller is " + arguments.callee.caller.toString());
 	if (this.state != this.STOPPED)
     {
@@ -401,8 +402,8 @@ Player.onBufferingComplete = function()
     Player.bufferingComplete = true;
     //Main.callFunctionWithDelay(5000, Display.hideInfoBar);
 
-	Logger.log(Logger.INFO, "Subtitle Count: " + Player.AVPlayer.totalNumOfSubtitle);
-	Logger.log(Logger.INFO, "Audio Stream Count: " + Player.AVPlayer.totalNumOfAudio);
+	console.log("Subtitle Count: " + Player.AVPlayer.totalNumOfSubtitle);
+	console.log("Audio Stream Count: " + Player.AVPlayer.totalNumOfAudio);
 	if(Player.AVPlayer.totalNumOfAudio>1)
 	{
 		//Player.AVPlayer.setAudioStreamID(1);
