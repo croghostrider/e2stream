@@ -28,9 +28,9 @@ Server.standby= function(deep)
 	var state=5;
 	if(deep)state=1;
 	var url = "http://" + Data.getIPAddress() + Server.standbyUrl + state.toString();
-	Logger.logDebug("Standby URL [" + url + "]");
+	console.log("Standby URL [" + url + "]");
 	if(deep==true)
-	Logger.log(Logger.INFO,"Setting standby to: " + state);
+	console.log("Setting standby to: " + state);
 	if (Server.sbXHRObj== null)
     {
         Server.sbXHRObj = new XMLHttpRequest();
@@ -45,28 +45,28 @@ Server.standby= function(deep)
     	}
     	catch(err)
     	{
-    		Logger.log(Logger.ERROR, "ERROR!!! " + err.message + " ---- name --- " + err.name);
+    		console.error("ERROR!!! " + err.message + " ---- name --- " + err.name);
     		//Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
     		//Main.setScreenMode(Main.ERROR);
     		return;
     	}
         if (Server.sbXHRObj.status != 200)
         {
-        	Logger.log(Logger.ERROR,"ERROR!!! Status code is not 200");
+        	console.error("ERROR!!! Status code is not 200");
         	//Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry","HTTP Response Code: " + this.XHRObj.status);
         	//Main.setScreenMode(Main.ERROR);
     		return;
         }
         else
         {
-        	Logger.log(Logger.INFO,"Successfully Issued power call: " + state);
+        	console.log("Successfully Issued power call: " + state);
         }
 
     
     }
     else
     {
-        Logger.log(Logger.FATAL, "Failed to create XHR");
+        console.error("Failed to create XHR");
     } 
 };
 
@@ -87,7 +87,7 @@ Server.zapToChannel= function(sref)
 	if(Main.RECORDINGS_LIST==true)return;
 	//sref = sref.replace(/\s/g,"%20");
 	var url = "http://" + Data.getIPAddress() + Server.zapPath + sref;
-	Logger.log(Logger.INFO,"Zapping to: " + sref);
+	console.log("Zapping to: " + sref);
 	if (Server.zapXHRObj== null)
     {
         Server.zapXHRObj = new XMLHttpRequest();
@@ -102,7 +102,7 @@ Server.zapToChannel= function(sref)
     	}
     	catch(err)
     	{
-    		Logger.log(Logger.ERROR, "ERROR!!! " + err.message + " ---- name --- " + err.name);
+    		console.error("ERROR!!! " + err.message + " ---- name --- " + err.name);
     		Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
     		Main.setScreenMode(Main.ERROR);
     		return;
@@ -115,14 +115,14 @@ Server.zapToChannel= function(sref)
         }
         else
         {
-        	Logger.log(Logger.INFO,"Successfully Zapped to channel: " + sref);
+        	console.log("Successfully Zapped to channel: " + sref);
         }
 
     
     }
     else
     {
-        Logger.log(Logger.FATAL, "Failed to create XHR");
+        console.error("Failed to create XHR");
     } 
 };
 
@@ -130,24 +130,24 @@ Server.zapToChannel= function(sref)
 
 Server.channelStatusReceivedCallback = function()
 {
-	Logger.log(Logger.WARN, "Channel Status done callback: " + Server.CheckXHRObj.status);
+	console.error("Channel Status done callback: " + Server.CheckXHRObj.status);
 };
 
 Server.updatePlayableChannels = function()
 {
-	Logger.logDebug("Update Playable Channels");
+	console.log("Update Playable Channels");
 	if(Main.RECORDINGS_LIST==true)return;
 	if (Server.CheckXHRObj.status != 200)
     {
-    	Logger.log(Logger.WARN, "Unable to check channel status: " + Server.CheckXHRObj.status);
+    	console.error("Unable to check channel status: " + Server.CheckXHRObj.status);
         //Display.status("XML Server Error " + Server.XHRObj.status);
     }
     else
     {
-    	Logger.log(Logger.DEBUG, "RESPXML: " + Server.CheckXHRObj.responseXML);
+    	console.log("RESPXML: " + Server.CheckXHRObj.responseXML);
     	if(Server.CheckXHRObj == null || !Server.CheckXHRObj.responseXML)
     	{
-    		Logger.log(Logger.WARN, "Error Getting Channel Status");
+    		console.error("Error Getting Channel Status");
     		return;
     	}
     	
@@ -155,7 +155,7 @@ Server.updatePlayableChannels = function()
         
         if (!xmlElement)
         {
-            Logger.log(Logger.WARN,"Failed to get valid XML for channel status");
+            console.error("Failed to get valid XML for channel status");
         }
         else
         {
@@ -165,7 +165,7 @@ Server.updatePlayableChannels = function()
             {
         		var srefElement = playableList[index].getElementsByTagName("e2servicereference")[0];
         		var isPlayableElem = playableList[index].getElementsByTagName("e2isplayable")[0];
-        		Logger.log(Logger.DEBUG, "Elem: " + srefElement.firstChild.data + " playable: " +isPlayableElem.firstChild.data);
+        		console.log("Elem: " + srefElement.firstChild.data + " playable: " +isPlayableElem.firstChild.data);
         		Data.PlayableSID[index] = srefElement.firstChild.data;
         		if(isPlayableElem.firstChild.data == 'True') Data.PlayableRes[index] = true;
         		else Data.PlayableRes[index] = false;
@@ -187,7 +187,7 @@ Server.CheckChannelList = function(sref)
 	if(Main.RECORDINGS_LIST==true)return;
 	//sref = sref.replace(/\s/g,"%20");
 	var url = "http://" + Data.getIPAddress() + Server.checkPath + sref;
-	Logger.logDebug("Check Channel: " + url);
+	console.log("Check Channel: " + url);
 	if (Server.CheckXHRObj == null)
     {
         Server.CheckXHRObj = new XMLHttpRequest();
@@ -196,10 +196,10 @@ Server.CheckChannelList = function(sref)
     {
         Server.CheckXHRObj.onreadystatechange = function()
         {
-        	//Logger.logDebug("readystate change: " + Server.XHRObj.readyState);
+        	//console.log("readystate change: " + Server.XHRObj.readyState);
         	if (Server.CheckXHRObj.readyState == 4 && Server.CheckXHRObj.status==200)
             {
-            	Logger.logDebug("UPDTE Playable channels");
+            	console.log("UPDTE Playable channels");
                 Server.updatePlayableChannels();                
             }
         };
@@ -208,7 +208,7 @@ Server.CheckChannelList = function(sref)
     }
     else
     {
-        Logger.log(Logger.FATAL, "Failed to create XHR");
+        console.error("Failed to create XHR");
     } 
 };
 
@@ -216,7 +216,7 @@ Server.fetchDescription = function( selectedVideo)
 {
 	if(Main.RECORDINGS_LIST == true)
 	{
-		Logger.log(Logger.DEBUG,"Skip EPG Retrieve in recordings view");
+		console.log("Skip EPG Retrieve in recordings view");
 		return;
 	}
 	
@@ -239,7 +239,7 @@ Server.fetchDescription = function( selectedVideo)
      }
     else
     {
-        Logger.log(Logger.FATAL, "Failed to create XHR For Now Request");
+        console.error("Failed to create XHR For Now Request");
     }
 
 	/** NEXT **/
@@ -258,7 +258,7 @@ Server.fetchDescription = function( selectedVideo)
      }
     else
     {
-        Logger.log(Logger.FATAL, "Failed to create XHR For Next Request");
+        console.error("Failed to create XHR For Next Request");
     }
 };
 
@@ -281,7 +281,7 @@ Server.checkStatusCode = function(url)
     	}
     	catch(err)
     	{
-    		Logger.log(Logger.ERROR, "ERROR!!! " + err.message + " ---- name --- " + err.name);
+    		console.error("ERROR!!! " + err.message + " ---- name --- " + err.name);
     		Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
     		Main.setScreenMode(Main.ERROR);
     		return -1;
@@ -309,7 +309,7 @@ Server.swapAlternativeId = function(inPos)
         
         if (!xmlElement)
         {
-            Logger.log(Logger.ERROR,"Failed to get valid XML");
+            console.error("Failed to get valid XML");
         }
         else
         {
@@ -341,7 +341,7 @@ Server.fetchAlternateVideo = function(inID,inPos)
     }
     else
     {
-        Logger.log(Logger.FATAL, "Failed to create XHR");
+        console.error("Failed to create XHR");
     }
 };
 
@@ -357,7 +357,7 @@ Server.fetchLocationList = function()
     {
      	this.XHRObj.open("GET", sUrl, false);
     	//this.XHRObj.timeout = 20000;
-    	//this.XHRObj.ontimeout = function () { Logger.logDebug("Timed out!!!"); };
+    	//this.XHRObj.ontimeout = function () { console.log("Timed out!!!"); };
         
     	try
     	{
@@ -365,7 +365,7 @@ Server.fetchLocationList = function()
     	}
     	catch(err)
     	{
-    		Logger.Log(Logger.ERROR,"Error fetching location list " + err.message + " ---- name --- " + err.name);
+    		console.error("Error fetching location list " + err.message + " ---- name --- " + err.name);
     		Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
     		Main.setScreenMode(Main.ERROR);
     		return;
@@ -378,7 +378,7 @@ Server.fetchLocationList = function()
         }
         else
         {
-        	Logger.log(Logger.INFO,"Creating Location List");
+        	console.log("Creating Location List");
         	Server.createLocationList();
         	
 	    	if (this.dataReceivedCallback)
@@ -389,7 +389,7 @@ Server.fetchLocationList = function()
     }
     else
     {
-    	Logger.log(Logger.FATAL, "Failed to create XHR");
+    	console.error("Failed to create XHR");
     }
 };
 
@@ -401,7 +401,7 @@ Server.fetchVideoList = function()
 
 Server.showTimeout = function()
 {
-	Logger.log(Logger.ERROR,"Timeout Error: " + err.message + " ---- name --- " + err.name);
+	console.error("Timeout Error: " + err.message + " ---- name --- " + err.name);
 	Display.setErrorDetails("I timed out trying to contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
 	Main.setScreenMode(Main.ERROR);
 };
@@ -461,7 +461,7 @@ Server.fetchVideoListWithUrl = function(surl)
     	}
     	catch(err)
     	{
-    		Logger.log(Logger.ERROR, "ERROR!!! " + err.message + " ---- name --- " + err.name);
+    		console.error("ERROR!!! " + err.message + " ---- name --- " + err.name);
     		Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
     		Main.setScreenMode(Main.ERROR);
     		return;
@@ -482,7 +482,7 @@ Server.fetchVideoListWithUrl = function(surl)
     }
     else
     {
-    	Logger.log(Logger.FATAL, "Failed to create XHR");
+    	console.error("Failed to create XHR");
     }
 };
 
@@ -492,7 +492,7 @@ Server.getDynamicDescriptionNow = function()
 	
 	if (Server.NowXHRObj.status != 200)
 	{
-		Logger.log(Logger.ERROR, "Error Getting EPG Data, Status: " + Server.NowXHRObj.status);
+		console.error("Error Getting EPG Data, Status: " + Server.NowXHRObj.status);
 		Display.status("XML Server Error " + Server.NowXHRObj.status);
 		return;
 	}
@@ -500,7 +500,7 @@ Server.getDynamicDescriptionNow = function()
 	{
 		if(Server.NowXHRObj == null || !Server.NowXHRObj.responseXML)
 		{
-			Logger.log(Logger.ERROR, "Error Getting NOW EPG Data");
+			console.error("Error Getting NOW EPG Data");
 			return;
 		}
 	}
@@ -509,7 +509,7 @@ Server.getDynamicDescriptionNow = function()
 	
 	if (!xmlElement)
 	{
-	    Logger.log(Logger.FATAL,"Failed to get valid XML");
+	    console.error("Failed to get valid XML");
 	}
 	else
 	{
@@ -526,7 +526,7 @@ Server.getDynamicDescriptionNow = function()
 		var endStr = "";
 		if(end!=null)endStr= Data.timeToHuman(end);
 		if(titleElement!=null)titleTxt = titleElement.firstChild.data;
-		//Logger.log(Logger.DEBUG, "EPG TITLE: " + titleTxt);
+		//console.log("EPG TITLE: " + titleTxt);
 		if(descElement==null)descTxt="";
 		else
 		{
@@ -553,14 +553,14 @@ Server.getDynamicDescriptionNext = function()
 	
 	if (Server.NextXHRObj.status != 200)
 	{
-		Logger.log(Logger.ERROR, "Error Getting EPG Data, Status: " + Server.DescNextObj.status);
+		console.error("Error Getting EPG Data, Status: " + Server.DescNextObj.status);
 		Display.status("XML Server Error " + Server.NextXHRObj.status);
 	}
 	else
 	{
 		if(Server.NextXHRObj == null || !Server.NextXHRObj.responseXML)
 		{
-			Logger.log(Logger.ERROR, "Error Getting NEXT EPG Data");
+			console.error("Error Getting NEXT EPG Data");
 			return;
 		}
 	}
@@ -569,7 +569,7 @@ Server.getDynamicDescriptionNext = function()
 	
 	if (!xmlElement)
 	{
-	    Logger.log(Logger.FATAL,"Failed to get valid XML");
+	    console.error("Failed to get valid XML");
 	}
 	else
 	{
@@ -586,7 +586,7 @@ Server.getDynamicDescriptionNext = function()
 		var endStr = "";
 		if(end!=null)endStr= Data.timeToHuman(end);
 		if(titleElement!=null)titleTxt = titleElement.firstChild.data;
-		//Logger.log(Logger.DEBUG, "EPG TITLE: " + titleTxt);
+		//console.log("EPG TITLE: " + titleTxt);
 		if(descElement==null)descTxt="";
 		else
 		{
@@ -616,7 +616,7 @@ Server.createBouquetAndVideoList = function()
     {
     	if(Server.XHRObj==null || !Server.XHRObj.responseXML)
     	{
-    		Logger.log(Logger.FATAL,"no response from E2 box");
+    		console.error("no response from E2 box");
     		Display.setErrorDetails("I did not get a response from your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry","No response");
     		Main.setScreenMode(Main.ERROR);
     	}
@@ -624,7 +624,7 @@ Server.createBouquetAndVideoList = function()
         
         if (!xmlElement)
         {
-            Logger.log(Logger.ERROR,"Failed to get valid XML");
+            console.error("Failed to get valid XML");
         }
         else
         {
@@ -653,9 +653,9 @@ Server.createBouquetAndVideoList = function()
             	//bouquetNames[index]=bouquetNameElem.firstChild.data;
             	var onBouquetName = bouquetNameElem.firstChild.data;
             	var onBouquetId = bouquetIdElem.firstChild.data;
-            	Logger.log(Logger.INFO,">> Found Bouquet");
-            	Logger.log(Logger.DEBUG,"[" + index + "] Name [" + onBouquetName + "]");
-            	//Logger.log(Logger.DEBUG,"[" + index + "] Name [" + onBouquetId + "]");            	
+            	console.log(">> Found Bouquet");
+            	console.log("[" + index + "] Name [" + onBouquetName + "]");
+            	//console.log("[" + index + "] Name [" + onBouquetId + "]");            	
             	var foundVids = 0;
             	for (var vidindex = 0; vidindex < items.length; vidindex++)
                 {
@@ -699,7 +699,7 @@ Server.createBouquetAndVideoList = function()
                         onCount++;
                     };//End if found elemens and not a category
                 };//end for items
-                Logger.log(Logger.DEBUG,"Number Channels: " + foundVids);
+                console.log("Number Channels: " + foundVids);
                 if(foundVids>0)
                 {
                 	bouquetNames[bouquetCount]=onBouquetName;
@@ -737,7 +737,7 @@ Server.createLocationAndMovieList = function()
 		}
 		catch(err)
 		{
-			Logger.log(Logger.ERROR,"Error creating location/movie list " + err.message + " ---- name --- " + err.name);
+			console.error("Error creating location/movie list " + err.message + " ---- name --- " + err.name);
 			Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
 			Main.setScreenMode(Main.ERROR);
 			return;
@@ -753,7 +753,7 @@ Server.createLocationAndMovieList = function()
 			var xmlElement = this.XHRObj.responseXML.documentElement;
 			if (!xmlElement)
 			{
-				Logger.log(Logger.ERROR,"Failed to get valid XML");
+				console.error("Failed to get valid XML");
 			}
 			else
 			{
@@ -772,13 +772,13 @@ Server.createLocationAndMovieList = function()
 					//Within the bouquet get the service name - which is the name
 					//of the bouquet
 					bouquetNames[index]=bouquets[index].firstChild.data;
-					//Logger.log(Logger.INFO,"Found Location [" + bouquetNames[index] + "]");
+					//console.log("Found Location [" + bouquetNames[index] + "]");
 				}
-				Logger.log(Logger.INFO,"Found " + bouquetNames.length + " locations");
+				console.log("Found " + bouquetNames.length + " locations");
 
 				for (var index = 0; index < bouquetNames.length; index++)
 				{
-					Logger.log(Logger.INFO,"Querying files in [" + bouquetNames[index] + "]");
+					console.log("Querying files in [" + bouquetNames[index] + "]");
 					//Now for each of the bouquets, find the movies
 
 					sUrl2 = "http://" + Data.getIPAddress() + Server.moviesUrl + encodeURIComponent(bouquetNames[index]);
@@ -796,7 +796,7 @@ Server.createLocationAndMovieList = function()
 						}
 						catch(err)
 						{
-							Logger.log(Logger.ERROR,"ERROR!!! " + err.message + " ---- name --- " + err.name);
+							console.error("ERROR!!! " + err.message + " ---- name --- " + err.name);
 							Display.setErrorDetails("I can't contact your Enigma 2 Set top box<br><br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
 							Main.setScreenMode(Main.ERROR);
 							return;
@@ -812,7 +812,7 @@ Server.createLocationAndMovieList = function()
 						{
 							var xmlElement = this.XHRObj.responseXML.documentElement;
 							var items = xmlElement.getElementsByTagName("e2movie");
-							Logger.log(Logger.DEBUG, "Found [" + items.length + "] recordings in locaion");
+							console.log("Found [" + items.length + "] recordings in locaion");
 							
 							//What if there are zero videos in the location
 							
@@ -891,7 +891,7 @@ Server.createLocationAndMovieList = function()
 	}
 	else
 	{
-		Logger.log(Logger.FATAL, "Failed to create XHR");
+		console.error("Failed to create XHR");
 	}
 };
 
@@ -908,7 +908,7 @@ Server.createVideoList = function()
         
         if (!xmlElement)
         {
-            Logger.log(Logger.ERROR,"Failed to get valid XML");
+            console.error("Failed to get valid XML");
         }
         else
         {

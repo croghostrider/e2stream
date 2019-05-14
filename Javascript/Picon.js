@@ -59,14 +59,14 @@ Picon.setTypes = function(serviceId,serviceName)
 	{
 		Picon.prevType = Picon.type;
 		Picon.type=Picon.NON;
-		Logger.log(Logger.INFO, "Removing Picons for recordings view");
+		console.log("Removing Picons for recordings view");
 		return;
 	}
 	else
 	{
 		if(Picon.prevType>=0)
 		{
-			Logger.log(Logger.INFO, "Returning Type following recordings view");
+			console.log("Returning Type following recordings view");
 			Picon.type = Picon.prevType;
 			return
 		}
@@ -75,7 +75,7 @@ Picon.setTypes = function(serviceId,serviceName)
 			//Only call the check if it's never been done!
 			if(Picon.type!=Picon.UNSET)
 			{
-				Logger.log(Logger.INFO, "Picon Type already set");
+				console.log("Picon Type already set");
 				return;
 			}
 		}
@@ -89,7 +89,7 @@ Picon.setTypes = function(serviceId,serviceName)
 	picFile = picFile.substring(0, picFile.length-1) + ".png";
     callurl = Picon.piconUrl + "/" + picFile;
 
-	Logger.log(Logger.DEBUG, "Picon SID Url: " + callurl);
+	console.log("Picon SID Url: " + callurl);
 	idStatus = Server.checkStatusCode(callurl);
 	
 	//2 - check servce name
@@ -102,17 +102,17 @@ Picon.setTypes = function(serviceId,serviceName)
 	picFile = Picon.processChannelName(serviceName);
 	
 	callurl = Picon.piconUrl + "/" + picFile;
-	Logger.log(Logger.DEBUG, "Picon SName Url: " + callurl);
+	console.log("Picon SName Url: " + callurl);
 	nameStatus = Server.checkStatusCode(callurl);
 	
-	Logger.log(Logger.DEBUG, "SID Status: " + idStatus);
-	Logger.log(Logger.DEBUG, "SName Status: " + nameStatus);
+	console.log("SID Status: " + idStatus);
+	console.log("SName Status: " + nameStatus);
 	
 	Picon.type = Picon.NON;
 	if(idStatus == 200) Picon.type = Picon.SID;
 	if(nameStatus == 200) Picon.type = Picon.SNAME;
 	
-	Logger.log(Logger.DEBUG, "Picon Type: " + Picon.type);
+	console.log("Picon Type: " + Picon.type);
 };
 
 Picon.processChannelName = function(inName)

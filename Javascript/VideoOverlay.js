@@ -34,8 +34,7 @@ VideoOverlay.setBuffering = function(bufferpct)
 {
 	var timeElement = document.getElementById("timeInfo");
     timeHTML = "buffering... " + bufferpct + "%";  
-    widgetAPI.putInnerHTML(timeElement, timeHTML);
-    
+    timeElement.innerHTML = timeHTML;
 };
 
 VideoOverlay.setTime = function(time)
@@ -93,7 +92,7 @@ VideoOverlay.setTime = function(time)
 		else timeHTML="";
 	}
     
-    widgetAPI.putInnerHTML(timeElement, timeHTML);
+	timeElement.innerHTML = timeHTML;
     
 };
  
@@ -104,7 +103,7 @@ VideoOverlay.updateRemainingTime = function()
 	if(VideoOverlay.infoBarActive==true)
 	{
 		remTimeElem = document.getElementById('recbar-remain');
-		widgetAPI.putInnerHTML(remTimeElem, VideoOverlay.remainingTime);
+		remTimeElem.innerHTML = VideoOverlay.remainingTime;
 	}
 };
 
@@ -123,13 +122,13 @@ VideoOverlay.show = function()
 VideoOverlay.showPauseText = function()
 {
 	var elem = document.getElementById("recbar-channel");
-	widgetAPI.putInnerHTML(elem,"<img src='Images/navi/pause.png'><span id='recbctext'>Recording Paused</span>");
+	elem.innerHTML ="<img src='Images/navi/pause.png'><span id='recbctext'>Recording Paused</span>";
 };
 
 VideoOverlay.showRecordingPlaybackText = function()
 {
 	var elem = document.getElementById("recbar-channel");
-	widgetAPI.putInnerHTML(elem,"Recording Playback");
+	elem.innerHTML ="Recording Playback";
 };
 
 VideoOverlay.showInfoBarNoTimer = function()

@@ -14,8 +14,8 @@
 /* Layout */
 body
 {
-    width: 960px; 
-    height: 540px;
+    width: 1920px;; 
+    height: 1080px;
     position: absolute;
     display: block;
     float: left;
@@ -28,7 +28,7 @@ body
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
      overflow:hidden;
 }
 
@@ -36,14 +36,14 @@ body
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
 }
 
 #advancedSettingsPanel
 {
 	 position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
      z-index: 400;
      display:none;
 }
@@ -52,7 +52,7 @@ body
 {
 	 position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
      z-index: 400;
      display:none;
 }
@@ -61,35 +61,35 @@ body
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
 }
 
 #questionPopup
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
 }
 
 #question2Popup
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
 }
 
 #errorPopup
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
 }
 
 #streamErrorPopup
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
      z-index:450;
 }
 
@@ -97,7 +97,7 @@ body
 {
      position: absolute;
      left: 0px; top: 0px;
-     width: 960px; height: 540px;
+     width: 1920px; height: 1080px;
 }
 
 
@@ -109,7 +109,7 @@ body
 {
     position: absolute;
     left: 0px; top: 0px;
-    width: 960px; height: 540px;	
+    width: 1920px; height: 1080px;	
     z-index: 10;
     background-color: #000000;
 	color: #ffffff;  
@@ -120,7 +120,7 @@ body
 {
 	left: 0px;
     top: 200px;
-    width: 960px;
+    width: 1920px;
     text-align: center;
     z-index:301;
 }
@@ -548,7 +548,7 @@ DIV#settings DIV#navi
 {
     position: absolute;
     left: 0px; top: 0px;
-    width: 960px; height: 540px;	
+    width: 1920px; height: 1080px;	
     z-index: 10;
     background-color: #000000;
 	color: #ffffff;  

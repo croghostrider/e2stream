@@ -88,7 +88,7 @@ Display.setStreamMode = function(inStreamMode)
 
 Display.setBouquetDesc = function()
 {
-	//Logger.logDebug("Set bouquet Description");
+	console.log("Set bouquet Description");
 	var desc = Data.getBouquetDescription(Data.getOnBouquet());
 	document.getElementById("bouquetDesc").innerHTML =desc;
 };
@@ -118,7 +118,7 @@ Display.updateVideoList = function()
 
 Display.setVideoList = function(nameList,idList)
 {
-	Logger.logDebug("Setting video list - length" + nameList.length);
+	console.log("Setting video list - length" + nameList.length);
     var i=0;
     var picUrl;
 
@@ -353,14 +353,14 @@ Display.updateChannelInfomation = function()
 
 Display.hideDetailedInfoBar = function()
 {
-	Logger.log(Logger.INFO,"Hiding Detail INFO Bar");
+	console.log("Hiding Detail INFO Bar");
 	document.getElementById("infobarDetail").style.display="none";
 	VideoOverlay.infoDetailBarActive=false;
 };
 
 Display.showDetailedInfoBar = function()
 {
-	Logger.log(Logger.INFO,"Showing Detail INFO Bar");
+	console.log("Showing Detail INFO Bar");
 	document.getElementById("infobarDetail").style.display="block";
 	
 	//if recording then hide the next...
@@ -379,14 +379,14 @@ Display.showDetailedInfoBar = function()
 
 Display.showChnlBar= function()
 {
-	Logger.log(Logger.INFO,"Showing Channel INFO Bar");
+	console.log("Showing Channel INFO Bar");
 	document.getElementById("infobar").style.display="block";
 	document.getElementById("recbar").style.display="none";
 };
 
 Display.hideChnlBar = function()
 {
-	Logger.log(Logger.INFO,"Hiding the INFO Bar");
+	console.log("Hiding the INFO Bar");
 	document.getElementById("infobar").style.display="none";
 	document.getElementById("recbar").style.display="none";
 	document.getElementById("infobar-audiostreams").style.display="none";
@@ -394,14 +394,14 @@ Display.hideChnlBar = function()
 
 Display.showRecBar = function()
 {
-	Logger.log(Logger.INFO,"Showing Recording INFO Bar");
+	console.log("Showing Recording INFO Bar");
 	document.getElementById("recbar").style.display="block";
 	document.getElementById("infobar").style.display="none";
 };
 
 Display.hideRecBar = function()
 {
-	Logger.log(Logger.INFO,"Hiding the INFO Bar");
+	console.log("Hiding the INFO Bar");
 	document.getElementById("recbar").style.display="none";
 	document.getElementById("infobar").style.display="none";
 	document.getElementById("infobar-audiostreams").style.display="none";
@@ -560,7 +560,7 @@ Display.loadingShow = function()
 
 Display.setLoadingTxt = function(txt)
 {
-	Logger.log(Logger.INFO, 'Startup: ' + txt);
+	console.log('Startup: ' + txt);
 	var elem = document.getElementById("loadingtxt");
 	elem.innerHTML = txt;
 	
@@ -712,7 +712,7 @@ Display.changeAdvancedSettingField = function(direction)
 			onfieldNo = i;
 		}
 	}
-	Logger.log(Logger.DEBUG, "On advanced Field No: " + onfieldNo);
+	console.log("On advanced Field No: " + onfieldNo);
 	
 	
 	if(onfieldNo==1)
@@ -736,7 +736,7 @@ Display.changeAdvancedSettingField = function(direction)
 		if(direction==Display.ENTER)Display.setToggle('a3', 'a4');
 		if(Display.getToggle('a3', 'a4')==1)
 		{
-			Logger.logDebug("Multi-Transcode turned on");
+			console.log("Multi-Transcode turned on");
 			Utilities.getElement("disabledBack").style.display="none";
 			
 			//Set transcoding to false in the settings screen
@@ -757,7 +757,7 @@ Display.changeAdvancedSettingField = function(direction)
 		if(direction==Display.ENTER)Display.setToggle('a3', 'a4');
 		if(Display.getToggle('a3', 'a4')==1)
 		{
-			Logger.logDebug("Multi-Transcode turned on");
+			console.log("Multi-Transcode turned on");
 			Utilities.getElement("disabledBack").style.display="none";
 		}
 		else
@@ -872,7 +872,7 @@ Display.changeParentalSettingField = function(direction)
 		if(direction==Display.ENTER)Display.setToggle('p7', 'p8');
 	}
 	
-	Logger.log(Logger.DEBUG, "On Field No: " + onfieldNo);
+	console.log("On Field No: " + onfieldNo);
 	
 	document.getElementById(prefix + "1").className = 'inputTxt';
 	document.getElementById(prefix + "2").className = 'inputTxt';
@@ -1000,7 +1000,7 @@ Display.changeField = function(direction)
 	}
 	
 	
-	Logger.log(Logger.DEBUG, "On Field No: " + onfieldNo);
+	console.log("On Field No: " + onfieldNo);
 	
 	/**
 	 * Code to switch the debug from right to left so you can partly
@@ -1060,7 +1060,7 @@ Display.setToggle = function(fieldName1,fieldName2)
 
 Display.getToggle = function(fieldName1,fieldName2)
 {
-	Logger.logDebug("Getting Toggle for [" + fieldName1 + "]");
+	console.log("Getting Toggle for [" + fieldName1 + "]");
 	var elem1 = document.getElementById(fieldName1 +'val');
 	if(elem1.className=="radioSelected") return 1;
 	else return 2;
@@ -1069,7 +1069,7 @@ Display.getToggle = function(fieldName1,fieldName2)
 
 Display.presetToggle = function(fieldName1,fieldName2,onfield)
 {
-	//Logger.log(Logger.DEBUG, "Preset Toggle: " + fieldName1 + " - " + fieldName2 + " - " + onfield);
+	console.log("Preset Toggle: " + fieldName1 + " - " + fieldName2 + " - " + onfield);
 	var elem1 = document.getElementById(fieldName1 +'val');
 	var elem2 = document.getElementById(fieldName2 +'val');
 	
@@ -1089,7 +1089,7 @@ Display.initSpinField = function(fieldName, inlist,value)
 {
 	if(!inlist || inlist == null || inlist.length==0)
 	{
-		Logger.log(Logger.WARN, "No List provided for spinfield");
+		console.log("No List provided for spinfield");
 		return;
 	}
 	
@@ -1303,7 +1303,7 @@ Display.showVolume = function()
 	vol = vol * 2;
 	var height = vol;;
 	var top = topBase + (200-vol);
-	Logger.log(Logger.INFO,"Volume [" + vol + "] top [" + top + "]");
+	console.log("Volume [" + vol + "] top [" + top + "]");
 	document.getElementById("volumeSliderVal").style.top=top+"px";
 	document.getElementById("volumeSliderVal").style.height=height+"px";
 	document.getElementById("volumeSliderVal").style.display="block";

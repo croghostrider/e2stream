@@ -63,6 +63,7 @@ var Main =
 
 Main.setScreenMode = function(inMode)
 {
+	
 	console.log('Setting screen mode: ' +inMode );
 	//console.log("caller is " + arguments.callee.caller.toString());  
 	
@@ -202,7 +203,7 @@ Main.initialOnLoad = function()
 	{
 		deviceId = "Unknown";
 	}
-	Logger.log(Logger.DEBUG, "DeviceID: " + deviceId);
+	console.log("DeviceID: " + deviceId);
 	Display.setField("idno",deviceId);
 	Display.setField("deviceId",deviceId);
 	
@@ -232,7 +233,7 @@ Main.initialOnLoad = function()
 	}
 	else
 	{
-		Logger.log(Logger.WARN, "No settings found");
+		console.log("No settings found");
 		Display.setSettingsScreenValues();
 		
 		//Main.setScreenMode(Main.SETTING);
@@ -255,19 +256,19 @@ Main.onLoadMain = function()
 Main.processChannelList = function()
 {
 	//Display.setLoadingTxt("Processing " + Data.getVideoIDs().length + " Channels");
-	Logger.log(Logger.DEBUG, "Start Bouquet is: " + Data.getStartBouquet() + " index [" + Data.getBouquetIndexFromDescription(Data.getStartBouquet()) + "]");
+	console.log("Start Bouquet is: " + Data.getStartBouquet() + " index [" + Data.getBouquetIndexFromDescription(Data.getStartBouquet()) + "]");
 	
-	Logger.log(Logger.DEBUG, "Populating Video List for Display"); 
+	console.log("Populating Video List for Display"); 
 	Data.populateVideoListForDisplay(Data.getBouquetIndexFromDescription(Data.getStartBouquet()));
-	Logger.log(Logger.DEBUG, "Setting on Bouquet");
+	console.log("Setting on Bouquet");
 	Data.setOnBouquet(Data.getBouquetIndexFromDescription(Data.getStartBouquet()));
-	Logger.log(Logger.DEBUG, "Checking Channel List");
+	console.log("Checking Channel List");
 	
 	firstname = Data.getVideoNames()[0];
 	firstid   = Data.getVideoIDs()[0];
-	Logger.log(Logger.DEBUG,"Size:  " + Data.getVideoNames().length);
-	Logger.log(Logger.DEBUG,"First Channel: " + firstname);
-	Logger.log(Logger.DEBUG,"First ID: " + firstid);
+	console.log("Size:  " + Data.getVideoNames().length);
+	console.log("First Channel: " + firstname);
+	console.log("First ID: " + firstid);
 	
 	Picon.setTypes(firstid,firstname); 
 	if(Picon.type == Picon.NON)Display.setField("piconmode"," None Found");
@@ -402,7 +403,7 @@ Main.startup= function()
     } 
 	else
 	{
-		Logger.log(Logger.Fatal, "Not able to initialise server class");
+		console.error("Not able to initialise server class");
 		Display.setErrorDetails("Unable to initialise Server class<br>Please press the <font color='red'>red</font> button to clear the settings and start again, or the <font color='green'>green</font> button to retry",err.message);
 		Main.setScreenMode(Main.ERROR);
 	}
@@ -532,7 +533,7 @@ Main.receiveInput = function(inKeyCode)
 		maxSize = 5;
 	}
 	
-	//Logger.log(Logger.DEBUG,"Onfield [" + onField + "] value [" + onFieldVal + "] size [" + size + " of " + maxSize +"]");
+	//console.log("Onfield [" + onField + "] value [" + onFieldVal + "] size [" + size + " of " + maxSize +"]");
 	
 	if (size<maxSize) onFieldVal = onFieldVal + keyPressed;
 	if (size==maxSize) onFieldVal = keyPressed;
@@ -762,7 +763,7 @@ Main.mtIsValid = function()
 Main.keyDown = function()
 {
     var keyCode = event.keyCode;
-    if(!Alert.isActive())Logger.logDebug("Key pressed: " + keyCode + "- Screen Mode: " + Main.SCREENMODE);
+    if(!Alert.isActive())console.log("Key pressed: " + keyCode + "- Screen Mode: " + Main.SCREENMODE);
 
     if(Alert.isActive())
     {
@@ -936,7 +937,7 @@ Main.keyDown = function()
     	switch(keyCode)
 	    {
 	    	case tvKey.KEY_GREEN:
-	    		//Logger.logDebugt('Save');
+	    		//console.log('Save');
 	    		//console.log("Spinner set: " + Display.getSpinFieldValue());
 	    		Audio.playSoundEnter();
 	    		Data.setStartBouquet(Display.getSpinFieldValue());
@@ -1302,7 +1303,7 @@ Main.keyDown = function()
     			if(ParentalSettings.isBouquetLockEnabled()==true)
     			{
     				Audio.playSoundWarning();
-    				Logger.log(Logger.INFO, "ALERT: Bouquet Change Attemped when locked");
+    				console.log("ALERT: Bouquet Change Attemped when locked");
     				break;
     			}
     			
@@ -1331,7 +1332,7 @@ Main.keyDown = function()
 	        	if(ParentalSettings.isBouquetLockEnabled()==true)
     			{
     				Audio.playSoundWarning();
-    				Logger.log(Logger.INFO, "ALERT: Bouquet Change Attemped when locked");
+    				console.log("ALERT: Bouquet Change Attemped when locked");
     				break;
     			}
 	        	Audio.playSoundPageRight();
@@ -1369,7 +1370,7 @@ Main.keyDown = function()
 	        	if(this.mode == this.FULLSCREEN)break;
 	        	Audio.playSoundEnter();
 	        	Data.switchStreamMode();
-	        	Logger.log(Logger.INFO, "StreamMode: " + Data.getStreamModeDesc());        	
+	        	console.log("StreamMode: " + Data.getStreamModeDesc());        	
 	        	Display.setStreamMode(Data.getOppositeStreamModeDesc());
 	        	Main.updateCurrentVideo(2,0);
 	        	break;
@@ -1438,7 +1439,7 @@ Main.keyDown = function()
 	        	Audio.playSoundEnter();
 	        	if(Main.RECORDINGS_LIST==false)
 	        	{
-	               	Logger.log(Logger.INFO, "Switching to recordings mode");
+	               	console.log("Switching to recordings mode");
 	        		Main.selectFirstVideo(this.START);
 	        		Main.RECORDINGS_LIST = true;
 	               	Display.setLoadingTxt("Retrieving recordings List from " + Data.getIPAddress());
@@ -1447,7 +1448,7 @@ Main.keyDown = function()
 	        	}
 	        	else
 	        	{
-	        		Logger.log(Logger.INFO, "Switching to Channel mode");
+	        		console.log("Switching to Channel mode");
 	        		Main.selectFirstVideo(this.START);
 	               	//Display.setLoadingTxt("Retrieving Channel List");
 	               	Main.RECORDINGS_LIST = false;
@@ -1463,7 +1464,7 @@ Main.keyDown = function()
         			return;
         		}
 	        	Audio.playSoundEnter();
-	        	Logger.log(Logger.INFO, "Switching to Channel mode");
+	        	console.log("Switching to Channel mode");
 	        	Main.selectFirstVideo(this.START);
                	Main.RECORDINGS_LIST = false;
                	Display.setLoadingTxt("Retrieving Channel List from " + Data.getIPAddress());
@@ -1542,18 +1543,7 @@ Main.keyDown = function()
     	
     	case 75: //tools
         	Audio.playSoundWarning();
-    		if(Main.DEBUG==false)
-    		{
-    			Main.DEBUG = true;
-    			Logger.init();
-    			console.log("Enabling Debug");
-    		}
-    		else
-    		{
-    			console.log("Disabling Debug");
-    			Main.DEBUG = false;
-    			Logger.init();
-    		}
+    		
 
 	   
     }
@@ -1655,15 +1645,15 @@ Main.getRecordings = function()
 Main.handlePlayKey = function()
 {
 	Audio.playSoundEnter();
-	Logger.log(Logger.INFO, "Stream playback requested");
+	console.log("Stream playback requested");
 	Display.hideAudioStreamsOnInfoBar();
 	Display.setClock();
 	var id   = Data.getVideoID(SlidingWindow.pointer);
 	var name = Data.getVideoName(SlidingWindow.pointer);
 	var bid= Data.getBouquetId(Data.getOnBouquet());
 	playingIndex = id;
-	Logger.log(Logger.DEBUG,"Channel ID [" + id + "]");
-	Logger.log(Logger.DEBUG,"Bouquet ID [" + bid + "]");
+	console.log("Channel ID [" + id + "]");
+	console.log("Bouquet ID [" + bid + "]");
 
 	LastChannel.put(bid,id);
 	
@@ -1792,7 +1782,7 @@ Main.setFullScreenMode = function()
 Main.setWindowMode = function()
 {
 	console.log("setWindowMode");
-	//Logger.log(Logger.WARN,"caller is " + arguments.callee.caller.toString());
+	//console.log("caller is " + arguments.callee.caller.toString());
     if (this.mode != this.WINDOW)
     {
         Display.show("main",410);
@@ -1873,12 +1863,12 @@ Main.streamVideo = function()
     	Main.handlePlayKey();
     	if(isPaused==false)
     	{
-    		Logger.log(Logger.DEBUG,"Player not paused, toggle");
+    		console.log("Player not paused, toggle");
     		Main.toggleMode();
     	}
     	else
     	{
-    		Logger.log(Logger.DEBUG,"Player Paused or infobar active - just restart stream");
+    		console.log("Player Paused or infobar active - just restart stream");
     	}
     	
     }

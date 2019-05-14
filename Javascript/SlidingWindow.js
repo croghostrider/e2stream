@@ -36,7 +36,7 @@ SlidingWindow.init = function(innumberItems,inwindowSize,start)
 	SlidingWindow.windowSize = inwindowSize;
 	SlidingWindow.pointer = start;
 	SlidingWindow.windowStartPointer = start;
-    Logger.log(Logger.INFO,"Initialising Sliding Window - Items [" + innumberItems +"] WinSize [" + inwindowSize + "] Start [" + start + "]");
+    console.log("Initialising Sliding Window - Items [" + innumberItems +"] WinSize [" + inwindowSize + "] Start [" + start + "]");
 	return true;
     
 };
@@ -79,7 +79,7 @@ SlidingWindow.moveIndependentPointer = function(count)
 	{
 		SlidingWindow.noSlidePointer = 0;
 	}
-	Logger.log(Logger.INFO,"Sliding Window - Items [" + SlidingWindow.numberItems +"] Indepndent Pointer [" + SlidingWindow.noSlidePointer + "]");
+	console.log("Sliding Window - Items [" + SlidingWindow.numberItems +"] Indepndent Pointer [" + SlidingWindow.noSlidePointer + "]");
 };
 
 /**
@@ -88,7 +88,7 @@ SlidingWindow.moveIndependentPointer = function(count)
  */
 SlidingWindow.move = function(count)
 {
-	Logger.log(Logger.INFO,"SlidingWindow::Move [" + count +"]");
+	console.log("SlidingWindow::Move [" + count +"]");
 	
 	SlidingWindow.pointer += count;
 	
@@ -131,7 +131,7 @@ SlidingWindow.move = function(count)
 	}
 		
 	SlidingWindow.positionInWindow = SlidingWindow.pointer - SlidingWindow.windowStartPointer;
-	Logger.log(Logger.INFO,"Sliding Window - Items [" + SlidingWindow.numberItems +"] WinSize [" + SlidingWindow.windowSize + "] Pointer [" + SlidingWindow.pointer + "] Windows Start [" + SlidingWindow.windowStartPointer + "]");
+	console.log("Sliding Window - Items [" + SlidingWindow.numberItems +"] WinSize [" + SlidingWindow.windowSize + "] Pointer [" + SlidingWindow.pointer + "] Windows Start [" + SlidingWindow.windowStartPointer + "]");
 	
 };
 

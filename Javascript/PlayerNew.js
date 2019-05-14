@@ -137,7 +137,7 @@ Player.init = function()
 {
 	//Logger.logDebug("caller is " + arguments.callee.caller.toString());    
 	var success = true;
-	Logger.logDebug("Player is Configured as: " + Data.getPlayerName());
+	console.log("Player is Configured as: " + Data.getPlayerName());
 	this.state = this.STOPPED;
 	Main.playerObj = Player.instance();
 	return success;
@@ -309,7 +309,7 @@ Player.resumeVideo = function()
     this.state = this.PLAYING;
     Display.status("Playing");
     Player.AVPlayer.resume();
-    Logger.logDebug("Resumed");
+    console.log("Resumed");
 };
 
 
@@ -336,7 +336,7 @@ Player.skipForwardVideo = function(secs)
 { 
 	if (is_buffering) 
 	{ 
-		Logger.logDebug("Currently buffering! Blocking FF"); 
+		console.log("Currently buffering! Blocking FF"); 
 		VideoOverlay.showAlertBarOnScreen("Cannot Skip whilst buffering");
 		return; 
 	} 
@@ -353,7 +353,7 @@ Player.skipBackwardVideo = function(secs)
 { 
 	if (is_buffering) 
 	{ 
-		Logger.logDebug("Currently buffering! Blocking RW"); 
+		console.log("Currently buffering! Blocking RW"); 
 		VideoOverlay.showAlertBarOnScreen("Cannot Skip whilst buffering");
 		return; 
 	} 
@@ -433,19 +433,19 @@ OnNetworkDisconnected = function()
     Display.status("Network Error!");
 };
 
-getBandwidth = function(bandwidth) { Logger.logDebug("getBandwidth " + bandwidth); };
-onDecoderReady = function() { Logger.logDebug("onDecoderReady"); };
-onRenderError = function() { Logger.logDebug("onRenderError"); };
+getBandwidth = function(bandwidth) { console.log("getBandwidth " + bandwidth); };
+onDecoderReady = function() { console.log("onDecoderReady"); };
+onRenderError = function() { console.log("onRenderError"); };
 
 stopPlayer = function()
 {
-	Logger.logDebug("stopPlayer called");
+	console.log("stopPlayer called");
     Player.stopVideo();
 };
 
-setTottalBuffer = function(buffer) { Logger.logDebug("setTottalBuffer " + buffer); };
+setTottalBuffer = function(buffer) { console.log("setTottalBuffer " + buffer); };
 
-setCurBuffer = function(buffer) { Logger.logDebug("setCurBuffer " + buffer); };
+setCurBuffer = function(buffer) { console.log("setCurBuffer " + buffer); };
 
 
 Player.instance = function()

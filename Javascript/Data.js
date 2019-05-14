@@ -97,23 +97,23 @@ Data.getStartBouquet = function()
 	if(this.startBouquet=="### Last Active Bouquet")
 	{
 		//Find the start bouquet number from the cache
-		//Logger.log(Logger.WARN,"Starting Bouquet - Finding last active bouquet");
+		//console.log("Starting Bouquet - Finding last active bouquet");
 		var i = LastChannel.findLastBouquet();
 		bouquet =  Data.bouquetDescription[i];
 	}
 	else
 	{
-		//Logger.log(Logger.WARN,"Starting Bouquet - Static");
+		//console.log("Starting Bouquet - Static");
 	}
-	//Logger.logDebug("Starting bouquet [" + bouquet + "]");
+	//console.log("Starting bouquet [" + bouquet + "]");
 	return bouquet;
 
 };
 
 Data.setStartBouquet = function(sb)
 {
-	//Logger.log(Logger.INFO,"Seting start b: " + sb);
-	//Logger.logDebug("caller is " + arguments.callee.caller.toString());  
+	//console.log("Seting start b: " + sb);
+	//console.log("caller is " + arguments.callee.caller.toString());  
 	this.startBouquet = sb;
 };
 
@@ -134,16 +134,16 @@ Data.setAllVideoBouquetNos = function(list){this.allVideoBouquetNos = list;};
 
 Data.scanForAlternatives = function()
 {
-		Logger.log(Logger.INFO,"Scanning for alternatives");
+		console.log("Scanning for alternatives");
 		var onId = "";
 		for(var i=0;i<Data.getAllVideoIDs().length;i++)
 		{
 			onId = Data.getAllVideoIDs()[i];
 			if(onId.indexOf("1:134:1:0:0:0:0:0:0:0")>=0)
 			{
-				Logger.log(Logger.DEBUG,"Found an alternative [" + i + "] ID [" + onId + "]");
+				console.log("Found an alternative [" + i + "] ID [" + onId + "]");
 				Server.fetchAlternateVideo(onId, i);
-				Logger.log(Logger.DEBUG,"Switched id from [" + onId + "] to [" + Data.getAllVideoIDs()[i] + "]");
+				console.log("Switched id from [" + onId + "] to [" + Data.getAllVideoIDs()[i] + "]");
 			}
 		}
 };
@@ -171,7 +171,7 @@ Data.timeToHuman = function(inTime)
 
 Data.populateVideoListForDisplay = function(bqId)
 {
-	Logger.logDebug("Populate Video List for Display");
+	console.log("Populate Video List for Display");
 	var lvideoNames = [ ];
 	var lvideoUrls = [ ];
 	var lvideoIDs = [ ];
@@ -245,8 +245,8 @@ Data.getBouquetDescription = function(idx)
 
 Data.getBouquetId = function(idx)
 {
-	Logger.log(Logger.DEBUG,"Geting bouquet ID for index: " + idx);
-	Logger.log(Logger.DEBUG,this.bouquetIDs[idx]);
+	console.log("Geting bouquet ID for index: " + idx);
+	console.log(this.bouquetIDs[idx]);
 	return this.bouquetIDs[idx];
 };
 

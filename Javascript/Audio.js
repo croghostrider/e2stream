@@ -19,14 +19,14 @@ Audio.init = function()
     }*/
     if(webapis && webapis.audiocontrol && webapis.audiocontrol.playSound)
     {
-    	Logger.logDebug("Enabled Audio control");
+    	console.log("Enabled Audio control");
     	Audio.enabled=true;
     	Audio.plugin = webapis.audiocontrol;
         Audio.getVolume();
     }
     else
     {
-    	Logger.log(Logger.WARN, "Audio control not available");
+    	console.log("WARN Audio control not available");
     	Audio.enabled=false;
     }
     
@@ -42,7 +42,7 @@ Audio.playSoundKeypad= function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -57,7 +57,7 @@ Audio.playSoundDown = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("WARN Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -71,7 +71,7 @@ Audio.playSoundUp = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -86,7 +86,7 @@ Audio.playSoundVolDown = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -100,7 +100,7 @@ Audio.playSoundVolUp = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -114,7 +114,7 @@ Audio.playSoundEnter = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -128,7 +128,7 @@ Audio.playSoundWarning = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -143,7 +143,7 @@ Audio.playSoundBack = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -158,7 +158,7 @@ Audio.playSoundPageLeft = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -173,7 +173,7 @@ Audio.playSoundPageRight = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -187,7 +187,7 @@ Audio.playSoundLeft = function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
@@ -201,7 +201,7 @@ Audio.playSoundRight= function()
 	}
 	catch(e)
 	{
-		Logger.log(Logger.WARN, "Audio unavailale");
+		console.log("Audio unavailale");
 		Audio.enabled=false;
 	}
 };
